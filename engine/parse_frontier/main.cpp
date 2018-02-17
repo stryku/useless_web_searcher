@@ -12,7 +12,6 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-
     const auto working_directory = argv[1];
     const auto bind_address = argv[2];
     auto server = usl::common::communication::server::server_factory{}.create(bind_address);

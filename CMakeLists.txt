@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(useless_web_searcher)
 
-add_definitions(-std=c++17)
+add_definitions(-std=c++17 -Werror)
 
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
