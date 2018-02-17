@@ -20,7 +20,7 @@ namespace usl::common::communication::server::details
 
         zmq::message_t handle(const zmq::message_t& message) override
         {
-            m_message_handler.handle(message);
+            return m_message_handler.handle(message);
         }
 
     private:
