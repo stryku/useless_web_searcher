@@ -15,13 +15,13 @@ def main():
             print("Received request: %s" % message)
 
             data = {
-                'url': 'ACME',
+                'url': 'http://www.google.pl',
                 'id': fake_id
             }
 
             json_str = json.dumps(data)
             print("Sending response: %s" % json_str)
-            socket.send(json_str)
+            socket.send_string(json_str)
             fake_id += 1
         except Exception as ex:
             print(ex)
