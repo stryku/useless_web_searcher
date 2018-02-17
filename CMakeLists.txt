@@ -55,7 +55,7 @@ if (NOT ZMQ_FOUND)
 endif()
 include_directories (${ZMQ_INCLUDE_DIR})
 
-
+include_directories(common)
 add_subdirectory(common)
 add_subdirectory(engine)
 add_subdirectory(searcher)
