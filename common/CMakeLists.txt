@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 
-set(LIB_NAME common)
-
-project(${LIB_NAME})
+project(common)
 
 add_subdirectory(test)
 
-aux_source_directory(. SRC)
+FILE(GLOB_RECURSE SRC  *.*pp)
 
-add_library(${LIB_NAME} STATIC ${SRC})
+add_library(${PROJECT_NAME} STATIC ${SRC})
 
-target_include_directories(${LIB_NAME} PUBLIC .)
+target_include_directories(${PROJECT_NAME} PUBLIC .)
