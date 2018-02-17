@@ -18,8 +18,8 @@ def main():
         try:
             crawler = Crawler(sys.argv[1], sys.argv[2])
             crawler.run()
-        except:
-            pass
+        except Exception as ex:
+            print(ex)
 
 
 if __name__ == "__main__":
