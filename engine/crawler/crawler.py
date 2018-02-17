@@ -45,6 +45,10 @@ class Crawler:
 
 
 def main():
+    if len(sys.argv) < 3:
+        print("usage: crawler working_directory crawl_frontier_ip")
+        return
+
     while True:
         try:
             crawler = Crawler(sys.argv[1], sys.argv[2])
