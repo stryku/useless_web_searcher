@@ -38,6 +38,22 @@ else()
 endif()
 
 
+include (Local.cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
+
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+if (NOT Boost_FOUND)
+  message (ERROR "Boost not found!")
+endif()
+include_directories (${Boost_INCLUDE_DIR})
+
+find_package(ZMQ REQUIRED)
+if (NOT ZMQ_FOUND)
+  message (ERROR "ZMQ not found!")
+endif()
+include_directories (${ZMQ_INCLUDE_DIR})
+
+
 add_subdirectory(common)
 add_subdirectory(engine)
 add_subdirectory(searcher)
