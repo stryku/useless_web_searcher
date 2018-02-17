@@ -1,5 +1,7 @@
 #include "common/communication/server/server.hpp"
 
+#include <boost/assert.hpp>
+
 namespace usl::common::communication::server
 {
     server::server(zmq::context_t& context)
@@ -15,14 +17,19 @@ namespace usl::common::communication::server
     {
         while (true)
         {
-            zmq::message_t request;
-            m_socket.recv (&request);
-
-            zmq::message_t reply (5);
-            memcpy (reply.data (), "World", 5);
-            socket.send (reply);
+            BOOST_ASSERT_MSG(m_message_handler, "message handler not set");
+            const auto request = recv_request();
+            auto response = m_message_handler->handle(request);
+            m_socket.send(response);
         }
 
+    }
+
+    zmq::message_t server::recv_request()
+    {
+        zmq::message_t request;
+        m_socket.recv (&request);
+        return std::move(request);
     }
 }
 

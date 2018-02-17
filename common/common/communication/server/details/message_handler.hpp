@@ -1,11 +1,13 @@
 #pragma once
 
+#include <zmq.hpp>
+
 namespace usl::common::communication::server::details
 {
     class base_message_handler
     {
     public:
-        virtual void handle(const std::string& message) = 0;
+        virtual zmq::message_t handle(const zmq::message_t& message) = 0;
     };
 
     template <typename T>
@@ -16,7 +18,7 @@ namespace usl::common::communication::server::details
                 : m_message_handler{ std::move(message_handler) }
         {}
 
-        void handle(const std::string& message) override
+        zmq::message_t handle(const zmq::message_t& message) override
         {
             m_message_handler.handle(message);
         }

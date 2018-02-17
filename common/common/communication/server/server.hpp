@@ -27,6 +27,7 @@ namespace usl::common::communication::server
         }
 
     private:
+        zmq::message_t recv_request();
 
         zmq::socket_t m_socket;
         std::unique_ptr<details::base_message_handler> m_message_handler;
