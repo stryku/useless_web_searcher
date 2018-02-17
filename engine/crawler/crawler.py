@@ -24,8 +24,14 @@ class Crawler:
         site = urllib.request.urlopen(url)
         return site.read()
 
+    def build_site_filename(self, url_data):
+        return '{}/to_parse/{}'.format(self.working_dir, str(url_data['id']))
+
     def store_site(self, url_data, site_content):
-        pass
+        path_to_store = self.build_site_filename(url_data)
+        print("storing site to: %s" % path_to_store)
+        with open(path_to_store, mode='wb') as file:
+            file.write(site_content)
 
     def run(self):
         print("connecting to crawl frontier: %s" % self.crawl_frontier_ip)
