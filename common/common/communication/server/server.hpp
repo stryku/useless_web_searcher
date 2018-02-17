@@ -3,6 +3,7 @@
 #include <zmq.hpp>
 
 #include <string>
+#include <experimental/string_view>
 #include <memory>
 
 namespace usl::common::communication::server
@@ -12,7 +13,7 @@ namespace usl::common::communication::server
     public:
         server(zmq::context_t& context);
 
-        void bind(std::string_view bind_address);
+        void bind(std::experimental::string_view bind_address);
 
         template <typename T>
         void set_message_handler(T message_handler)
