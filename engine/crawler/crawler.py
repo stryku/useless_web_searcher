@@ -13,14 +13,14 @@ class Crawler:
         self.socket = self.context.socket(zmq.REQ)
 
     def get_next_url_data(self):
-        print("sending request")
+        print('sending request')
         self.socket.send(b'')
         received = self.socket.recv_string()
-        print("received response: %s" % received)
+        print('received response: %s' % received)
         return json.loads(received)
 
     def download_site_content(self, url):
-        print("downloading site from: %s" % url)
+        print('downloading site from: %s' % url)
         site = urllib.request.urlopen(url)
         return site.read()
 
@@ -29,12 +29,12 @@ class Crawler:
 
     def store_site(self, url_data, site_content):
         path_to_store = self.build_site_filename(url_data)
-        print("storing site to: %s" % path_to_store)
+        print('storing site to: %s' % path_to_store)
         with open(path_to_store, mode='wb') as file:
             file.write(site_content)
 
     def run(self):
-        print("connecting to crawl frontier: %s" % self.crawl_frontier_ip)
+        print('connecting to crawl frontier: %s' % self.crawl_frontier_ip)
         self.socket.connect(self.crawl_frontier_ip)
 
         while True:
