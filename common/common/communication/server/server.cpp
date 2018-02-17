@@ -10,5 +10,19 @@ namespace usl::common::communication::server
     {
         m_socket.bind(bind_address.data());
     }
+
+    void server::run()
+    {
+        while (true)
+        {
+            zmq::message_t request;
+            m_socket.recv (&request);
+
+            zmq::message_t reply (5);
+            memcpy (reply.data (), "World", 5);
+            socket.send (reply);
+        }
+
+    }
 }
 
