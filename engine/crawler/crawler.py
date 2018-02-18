@@ -43,7 +43,6 @@ class Crawler:
             url_data = self.get_next_url_data()
             site_content = self.download_site_content(url_data['url'])
             self.store_site(url_data, site_content)
-            time.sleep(4)
 
 
 def main():

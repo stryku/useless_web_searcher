@@ -12,23 +12,13 @@ namespace usl::parser::url
 
     void urls_handler::handle(const std::string& url, const std::string& content, size_t id)
     {
-        LOG(INFO) << "urls_handler::handle: " << url;
-
         const auto urls = urls_extractor{}.extract(url, content);
-
-        LOG(INFO) << "extracted urls: " << urls.size();
-        for(const auto url : urls)
-        {
-            LOG(INFO) << url;
-        }
 
         const auto root_url = info::site_root(url);
         const auto filtered_urls = urls_filter{{}}.filter_urls(root_url, urls);
 
-        LOG(INFO) << "filtered urls: " << filtered_urls.size();
         for(const auto url : filtered_urls)
         {
-            LOG(INFO) << url;
             m_db_requester.insert(std::string{ url.data(), url.size() });
         }
     }

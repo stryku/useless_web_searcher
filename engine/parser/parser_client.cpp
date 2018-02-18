@@ -26,8 +26,6 @@ namespace usl::parser
             const auto extracted_data = extract_url_and_site(file_content);
 
             m_parser.parse(extracted_data.url, extracted_data.site_content, id);
-
-            std::this_thread::sleep_for(std::chrono::seconds{59990});
         }
     }
 

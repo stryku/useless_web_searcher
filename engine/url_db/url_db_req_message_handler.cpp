@@ -25,8 +25,6 @@ namespace usl::url_db
         boost::property_tree::read_json(iss, tree);
 
         const auto msg_type = tree.get<std::string>("type");
-        LOG(INFO) << "url_db_req_message_handler handle " << msg_type;
-
         if(msg_type == "insert")
         {
             return insert(tree);

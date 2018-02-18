@@ -24,15 +24,12 @@ namespace usl::common::db
 
         zmq::message_t msg{ str_msg.begin(), str_msg.end() };
 
-        LOG(INFO) << "url_db_requester insert sending request: " << str_msg;
         m_socket.send(msg);
 
-        LOG(INFO) << "url_db_requester insert recv...";
         zmq::message_t reply;
         m_socket.recv (&reply);
 
         const auto str_reply = std::string{ reply.data<char>(), reply.size() };
-        LOG(INFO) << "url_db_requester insert received: " << str_reply;
 
         return str_reply;
     }
@@ -51,16 +48,12 @@ namespace usl::common::db
         const auto str_msg = oss.str();
 
         zmq::message_t msg{ str_msg.begin(), str_msg.end() };
-
-        LOG(INFO) << "url_db_requester get sending request: " << str_msg;
         m_socket.send(msg);
 
-        LOG(INFO) << "url_db_requester get recv...";
         zmq::message_t reply;
         m_socket.recv (&reply);
 
         const auto str_reply = std::string{ reply.data<char>(), reply.size() };
-        LOG(INFO) << "url_db_requester get received: " << str_reply;
 
         return str_reply;
     }
