@@ -2,6 +2,8 @@
 
 #include "url_db/db_entry_to_process.hpp"
 
+#include <easylogging/easylogging++.h>
+
 namespace usl::url_db
 {
     url_db::url_db(url_db_storage &storage)
@@ -36,8 +38,10 @@ namespace usl::url_db
         m_urls.insert(std::move(url));
 
         const auto new_id = m_id_to_offset.size();
+
         m_id_to_offset[new_id] = inserted_offset;
         m_not_processed.push(new_id);
+        LOG(INFO) << "url_db::inserted  " << new_id << ": " << url;
     }
 
     boost::optional<db_entry_to_process> url_db::get_for_processing()

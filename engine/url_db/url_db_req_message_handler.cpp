@@ -65,7 +65,6 @@ namespace usl::url_db
     zmq::message_t url_db_req_message_handler::insert(boost::property_tree::ptree& parsed_req)
     {
         const auto url = parsed_req.get<std::string>("url");
-        LOG(INFO) << "url_db_req_message_handler insert " << url;
 
         m_db.insert(url);
 
