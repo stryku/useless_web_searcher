@@ -18,7 +18,7 @@ namespace usl::parser
         while(true)
         {
             const auto path = m_file_paths_provider.get();
-            const auto file_content = common::fs::file_loader{}.load_string(path);
+            const auto file_content = common::fs::file_loader{}.load<std::string>(path);
             m_parser.parse(file_content);
 
             std::this_thread::sleep_for(std::chrono::seconds{50});
