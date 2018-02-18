@@ -27,7 +27,9 @@ namespace usl::parse_frontier
                 continue;
             }
 
-            const auto locked_file_path = locked_directory / dir->path();
+            auto path = dir->path();
+            const auto filename = dir->path().filename();
+            const auto locked_file_path =  path.remove_filename() / locked_directory / filename;
             boost::filesystem::rename(dir->path(), locked_file_path);
             return locked_file_path.string();
         }
