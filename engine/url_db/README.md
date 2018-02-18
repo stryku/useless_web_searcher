@@ -1,6 +1,6 @@
 # Args
 * argv[1] = path to working directory
-* argv[2] = bind ip
+* argv[2] = bind ip. Default: tcp://*:5553
 
 # Overview
 URL db stores set of unique urls along with its metadata.
