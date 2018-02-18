@@ -2,6 +2,7 @@
 
 #include "parser/url/urls_extractor.hpp"
 #include "parser/url/urls_filter.hpp"
+#include "parser/url/url_info.hpp"
 
 namespace usl::parser::url
 {
@@ -21,7 +22,8 @@ namespace usl::parser::url
             LOG(INFO) << url;
         }
 
-        const auto filtered_urls = urls_filter{{}}.filter_urls(urls);
+        const auto root_url = info::site_root(url);
+        const auto filtered_urls = urls_filter{{}}.filter_urls(root_url, urls);
 
         LOG(INFO) << "filtered urls: " << filtered_urls.size();
         for(const auto url : filtered_urls)

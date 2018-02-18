@@ -8,32 +8,16 @@ namespace usl::parser::url
         : m_filter{ filter }
     {}
 
-    urls_collection_t urls_filter::filter_urls(const urls_collection_t &urls)
+    urls_collection_t urls_filter::filter_urls(const std::string& root_url, const urls_collection_t &urls)
     {
-        const auto pred = [this](auto url)
+        const auto pred = [this, &root_url](const auto& url)
         {
             if(is_url_to_id(url))
             {
                 return false;
             }
 
-            if(!is_relative(url))
-            {
-                if(m_filter.empty())
-                {
-                    return false;
-                }
-
-                for(const auto& url_filter : m_filter)
-                {
-                    if(url.find(url_filter.c_str()) != 0u)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
+            return url.find(root_url) == 0u;
         };
 
         urls_collection_t filtered_urls;
@@ -45,12 +29,12 @@ namespace usl::parser::url
         return filtered_urls;
     }
 
-    bool urls_filter::is_url_to_id(string_view url) const
+    bool urls_filter::is_url_to_id(const std::string& url) const
     {
-        return url.front() == '#';
+        return url.find('#') != std::string::npos;
     }
 
-    bool urls_filter::is_relative(string_view url) const
+    bool urls_filter::is_relative(const std::string& url) const
     {
         return url.front() == '/' &&
                url.find("//www.") == string_view::npos &&
