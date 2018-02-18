@@ -19,7 +19,9 @@ namespace usl::parser
         {
             const auto path = m_file_paths_provider.get();
             const auto file_content = common::fs::file_loader{}.load<std::string>(path);
-            m_parser.parse(file_content);
+            const auto str_id = boost::filesystem::basename(path);
+            const auto id = std::stoul(str_id);
+            m_parser.parse(file_content, id);
 
             std::this_thread::sleep_for(std::chrono::seconds{59990});
         }

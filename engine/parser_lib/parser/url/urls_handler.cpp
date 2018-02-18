@@ -9,7 +9,7 @@ namespace usl::parser::url
         : m_db_requester{ db_address }
     {}
 
-    void urls_handler::handle(const std::string &content)
+    void urls_handler::handle(const std::string &content, size_t id)
     {
         const auto urls = urls_extractor{}.extract(content);
 
@@ -28,5 +28,4 @@ namespace usl::parser::url
             m_db_requester.insert(std::string{ url.data(), url.size() });
         }
     }
-
 }
