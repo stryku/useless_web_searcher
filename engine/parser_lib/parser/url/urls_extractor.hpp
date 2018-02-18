@@ -24,6 +24,5 @@ namespace usl::parser::url
 
         pos_t find_body(string_view content) const;
         boost::optional<string_view_and_end_pos> find_next_url(string_view content, pos_t pos) const;
-
     };
 }

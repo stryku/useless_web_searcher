@@ -15,7 +15,7 @@ def main():
             print("Received request: %s" % message)
 
             data = {
-                'url': 'http://www.google.pl',
+                'url': 'http://en.cppreference.com/w/cpp/string/basic_string_view/find',
                 'id': fake_id
             }
 
