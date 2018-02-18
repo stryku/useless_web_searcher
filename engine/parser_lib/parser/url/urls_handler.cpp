@@ -1,6 +1,7 @@
 #include "parser/url/urls_handler.hpp"
 
 #include "parser/url/urls_extractor.hpp"
+#include "parser/url/urls_filter.hpp"
 
 namespace usl::parser::url
 {
@@ -10,6 +11,14 @@ namespace usl::parser::url
 
         LOG(INFO) << "extracted urls: " << urls.size();
         for(const auto url : urls)
+        {
+            LOG(INFO) << url;
+        }
+
+        const auto filtered_urls = urls_filter{{}}.filter_urls(urls);
+
+        LOG(INFO) << "filtered urls: " << filtered_urls.size();
+        for(const auto url : filtered_urls)
         {
             LOG(INFO) << url;
         }

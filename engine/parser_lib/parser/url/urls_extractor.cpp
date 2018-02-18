@@ -2,16 +2,16 @@
 
 namespace usl::parser::url
 {
-    std::vector<string_view> urls_extractor::extract(string_view content) const
+    urls_collection_t urls_extractor::extract(string_view content) const
     {
-        std::vector<string_view> urls;
+        urls_collection_t urls;
 
         auto pos = find_body(content);
         auto found_url = find_next_url(content, pos);
 
         while(found_url)
         {
-            urls.emplace_back(found_url->view);
+            urls.emplace(found_url->view);
             found_url = find_next_url(content, found_url->end_pos);
         }
 
