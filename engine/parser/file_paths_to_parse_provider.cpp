@@ -1,4 +1,4 @@
-#include "poller/files_to_parse_poller.hpp"
+#include "file_paths_to_parse_provider.hpp"
 #include "common/communication/context.hpp"
 
 #include <easylogging/easylogging++.h>
@@ -6,11 +6,11 @@
 
 namespace usl::parser::poller
 {
-    files_to_parse_poller::files_to_parse_poller()
+    file_paths_to_parse_provider::file_paths_to_parse_provider()
         : m_socket{ common::communication::context, ZMQ_REQ }
     {}
 
-    void files_to_parse_poller::run(const std::string& parse_frontier_address, content::content_parser& parser)
+    void file_paths_to_parse_provider::run(const std::string& parse_frontier_address, content::content_parser& parser)
     {
         LOG(INFO) << "Connecting to: " << parse_frontier_address;
         m_socket.connect(parse_frontier_address);

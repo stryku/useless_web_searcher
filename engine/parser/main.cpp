@@ -1,4 +1,4 @@
-#include "poller/files_to_parse_poller.hpp"
+#include "file_paths_to_parse_provider.hpp"
 #include "parser/content/content_parser.hpp"
 #include "parser/url/urls_handler.hpp"
 
@@ -20,13 +20,13 @@ int main(int argc, char* argv[])
     LOG(INFO) << "Parser starting.";
     LOG(INFO) << "Working directory: " << working_directory;
     LOG(INFO) << "Parse frontier address: " << parse_frontier_address;
-    
+
     usl::parser::content::content_parser content_parser;
-    
+
     usl::parser::url::urls_handler urls_handler;
     content_parser.add_content_handler(urls_handler);
-    
-    usl::parser::poller::files_to_parse_poller poller;
-    
-    poller.run(parse_frontier_address, content_parser);
+
+    usl::parser::poller::file_paths_to_parse_provider file_paths_provider;
+
+    file_paths_provider.run(parse_frontier_address, content_parser);
 }

@@ -11,10 +11,10 @@ namespace usl::parser
 
     namespace poller
     {
-        class files_to_parse_poller
+        class file_paths_to_parse_provider
         {
         public:
-            explicit files_to_parse_poller();
+            explicit file_paths_to_parse_provider();
 
             void run(const std::string& parse_frontier_address, content::content_parser& parser);
 
