@@ -4,14 +4,11 @@
 
 namespace usl::url_db
 {
-    url_db_loader::url_db_loader(const usl::common::fs::file_loader &file_loader)
-        : m_file_loader{ file_loader }
-    {}
-
-    url_db url_db_loader::load(string_view file_path) const
+    url_db url_db_loader::load(url_db_storage storage) const
     {
-        const auto file_content = m_file_loader.load(file_path);
-        return load(file_content);
+        auto db = load(storage.data());
+        db.m_storage = std::move(storage);
+        return db;
     }
 
     url_db url_db_loader::load(const std::vector<uint8_t> &file_content) const

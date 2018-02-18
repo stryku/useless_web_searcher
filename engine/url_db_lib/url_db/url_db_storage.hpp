@@ -5,22 +5,31 @@
 
 #include <vector>
 
-namespace usl::url_db
+namespace usl
 {
-    class url_db_storage
+    namespace common::fs
     {
-    public:
-        using data_t = std::vector<uint8_t>;
+        class file_loader;
+    }
 
-        explicit url_db_storage(string_view working_directory);
+    namespace url_db
+    {
+        class url_db_storage
+        {
+        public:
+            using data_t = std::vector<uint8_t>;
 
-        const data_t& data() const;
-        const uint8_t* ptr(offset_t offset) const;
+            explicit url_db_storage(string_view working_directory, const common::fs::file_loader& file_loader);
 
-        void insert(const std::string& url);
+            const data_t &data() const;
 
-    private:
-        data_t m_data;
-        const std::string m_data_file_path;
-    };
+            const uint8_t *ptr(offset_t offset) const;
+
+            void insert(const std::string &url);
+
+        private:
+            const std::string m_data_file_path;
+            data_t m_data;
+        };
+    }
 }

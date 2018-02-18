@@ -4,6 +4,7 @@
 
 #include "url_db/db_entry_view.hpp"
 #include "url_db/url_db_offset.hpp"
+#include "url_db/url_db_storage.hpp"
 
 #include <unordered_map>
 #include <unordered_set>
@@ -25,5 +26,7 @@ namespace usl::url_db
 
         std::unordered_map<id_t, offset_t> m_id_to_offset;
         std::unordered_set<url_t> m_urls;
+
+        url_db_storage m_storage;
     };
 }

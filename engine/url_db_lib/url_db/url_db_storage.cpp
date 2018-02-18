@@ -1,13 +1,12 @@
 #include "url_db/url_db_storage.hpp"
 
-#include "common/fs/file_guard.hpp"
-
-#include <vector>
+#include "common/fs/file_loader.hpp"
 
 namespace usl::url_db
 {
-    url_db_storage::url_db_storage(string_view working_directory)
+    url_db_storage::url_db_storage(string_view working_directory, const common::fs::file_loader& file_loader)
         : m_data_file_path{ working_directory.data() + std::string { "/url_db" } }
+        , m_data{ file_loader.load<data_t>(m_data_file_path) }
     {}
 
     const url_db_storage::data_t& usl::url_db::url_db_storage::data() const
