@@ -9,7 +9,7 @@ namespace usl::parse_frontier
     class file_to_parse_provider
     {
     public:
-        file_to_parse_provider(const std::string& working_directory);
+        explicit file_to_parse_provider(const std::string& working_directory);
 
         boost::optional<std::string> get_file_to_parse();
 
