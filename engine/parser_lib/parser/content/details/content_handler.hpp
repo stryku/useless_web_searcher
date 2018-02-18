@@ -7,7 +7,7 @@ namespace usl::parser::content::details
     class base_content_handler
     {
     public:
-        virtual void handle(const std::string& url, const std::string& content, size_t id)) = 0;
+        virtual void handle(const std::string& url, const std::string& content, size_t id) = 0;
     };
 
     template <typename T>

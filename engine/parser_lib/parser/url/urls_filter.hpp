@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/string_view.hpp"
 #include "parser/url/urls_collection.hpp"
 
 #include <string>

@@ -4,6 +4,8 @@
 #include "parser/content/content_parser.hpp"
 #include "file_paths_to_parse_provider.hpp"
 
+#include <easylogging/easylogging++.h>
+
 #include <thread>
 
 namespace usl::parser
@@ -23,6 +25,9 @@ namespace usl::parser
             const auto id = std::stoul(str_id);
             const auto extracted_data = extract_url_and_site(file_content);
 
+            LOG(INFO) << extracted_data.url;
+            LOG(INFO) << extracted_data.site_content;
+
             m_parser.parse(extracted_data.url, extracted_data.site_content, id);
 
             std::this_thread::sleep_for(std::chrono::seconds{59990});
@@ -33,7 +38,7 @@ namespace usl::parser
     {
         url_and_site extracted;
 
-        extracted.url = file_content;
+        extracted.url = file_content.c_str();
         const auto url_size = extracted.url.size();
         const auto site_content_begin = std::next(file_content.begin(), url_size + 1u); // +1 to omit null
         extracted.site_content = std::string{ site_content_begin, file_content.end() };

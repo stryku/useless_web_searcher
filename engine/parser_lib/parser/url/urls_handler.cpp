@@ -11,6 +11,8 @@ namespace usl::parser::url
 
     void urls_handler::handle(const std::string& url, const std::string& content, size_t id)
     {
+        LOG(INFO) << "urls_handler::handle: " << url;
+
         const auto urls = urls_extractor{}.extract(url, content);
 
         LOG(INFO) << "extracted urls: " << urls.size();

@@ -6,7 +6,7 @@
 
 namespace usl::parser::content
 {
-    void content_parser::parse(const std::string& url, const std::string& content, size_t id))
+    void content_parser::parse(const std::string& url, const std::string& content, size_t id)
     {
         for(auto& handler : m_content_handlers)
         {

@@ -1,5 +1,7 @@
 #include "parser/url/url_info.hpp"
 
+#include <iterator>
+
 namespace usl::parser::url::info
 {
     bool is_absolute(const std::string& url)
@@ -10,7 +12,7 @@ namespace usl::parser::url::info
 
     std::string site_root(const std::string& url)
     {
-        const auto backslashes = "//";
+        const auto backslashes = std::string{ "//" };
         auto pos = url.find("//");
 
         if(pos == std::string::npos)
@@ -18,7 +20,7 @@ namespace usl::parser::url::info
             return {};
         }
 
-        pos = url.find('/', pos + std::size(backslashes));
+        pos = url.find('/', pos + backslashes.size());
 
         return url.substr(0, pos);
     }
