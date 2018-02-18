@@ -1,5 +1,6 @@
 #include "url_db/url_db_loader.hpp"
 #include "common/fs/file_loader.hpp"
+#include "url_db/url_db.hpp"
 
 namespace usl::url_db
 {
@@ -18,7 +19,7 @@ namespace usl::url_db
         url_db db;
 
         auto entry = load_next_entry(file_content);
-        url_db::offset_t offset{ 0u };
+        offset_t offset{ 0u };
         url_db::id_t index{ 0u };
 
         while(entry)
@@ -38,7 +39,7 @@ namespace usl::url_db
         return db;
     }
 
-    db_entry* url_db_loader::load_next_entry(const std::vector<uint8_t> &file_content, uint64_t offset) const
+    db_entry* url_db_loader::load_next_entry(const std::vector<uint8_t> &file_content, offset_t offset) const
     {
         if(offset >= file_content.size())
         {
