@@ -5,11 +5,14 @@
 
 namespace usl::url_db
 {
-    class db_entry
+#pragma pack(1)
+    struct db_entry
     {
         uint8_t status;
-        const char* url;
+        char url_begin;
 
         std::vector<uint8_t> to_binary() const;
+        const char* const url() const;
     };
+#pragma pack()
 }

@@ -8,7 +8,7 @@ namespace usl::url_db
 
         result.push_back(status);
 
-        auto url_ptr = url;
+        auto url_ptr = url();
 
         while(*url_ptr)
         {
@@ -17,5 +17,10 @@ namespace usl::url_db
         }
 
         return result;
+    }
+
+    const char* const db_entry::url() const
+    {
+        return &url_begin;
     }
 }
