@@ -18,7 +18,7 @@ namespace usl::parser::content
             m_content_handlers.emplace_back(std::move(handler));
         }
 
-        void parse(const std::string& content, size_t id);
+        void parse(const std::string& url, const std::string& content, size_t id);
 
     private:
         std::vector<std::unique_ptr<details::base_content_handler>> m_content_handlers;

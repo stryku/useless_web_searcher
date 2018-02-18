@@ -7,7 +7,7 @@ namespace usl::parser::content::details
     class base_content_handler
     {
     public:
-        virtual void handle(const std::string& content, size_t id) = 0;
+        virtual void handle(const std::string& url, const std::string& content, size_t id)) = 0;
     };
 
     template <typename T>
@@ -18,9 +18,9 @@ namespace usl::parser::content::details
             : m_content_handler{ std::move(content_handler) }
         {}
 
-        void handle(const std::string& content, size_t id) override
+        void handle(const std::string& url, const std::string& content, size_t id) override
         {
-            m_content_handler.handle(content, id);
+            m_content_handler.handle(url, content, id);
         }
 
     private:

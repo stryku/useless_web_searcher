@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace usl::parser
 {
     namespace content
@@ -17,6 +19,14 @@ namespace usl::parser
         void run();
 
     private:
+        struct url_and_site
+        {
+            std::string url;
+            std::string site_content;
+        };
+
+        url_and_site extract_url_and_site(const std::string& file_content);
+
         file_paths_to_parse_provider& m_file_paths_provider;
         content::content_parser& m_parser;
     };

@@ -2,7 +2,7 @@
 
 namespace usl::parser::url
 {
-    urls_collection_t urls_extractor::extract(string_view content) const
+    urls_collection_t urls_extractor::extract(const std::string& url, const std::string& content) const
     {
         urls_collection_t urls;
 
@@ -37,8 +37,8 @@ namespace usl::parser::url
         const auto url_end = content.find("\"", url_start);
         const auto url_size = url_end - url_start;
 
-        const auto url_view = string_view{ std::next(content.cbegin(), url_start), url_size};
+        const auto url = std::string{ std::next(content.cbegin(), url_start), url_size};
 
-        return string_view_and_end_pos{ url_view, url_end };
+        return string_view_and_end_pos{ url, url_end };
     }
 }

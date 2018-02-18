@@ -6,20 +6,21 @@
 #include <boost/optional.hpp>
 
 #include <vector>
+#include <string>
 
 namespace usl::parser::url
 {
     class urls_extractor
     {
     public:
-        urls_collection_t extract(string_view content) const;
+        urls_collection_t extract(const std::string& url, const std::string& content) const;
 
     private:
         using pos_t = string_view::size_type;
 
         struct string_view_and_end_pos
         {
-            string_view view;
+            std::string view;
             pos_t end_pos;
         };
 

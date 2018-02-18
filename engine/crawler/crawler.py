@@ -31,6 +31,8 @@ class Crawler:
         path_to_store = self.build_site_filename(url_data)
         print('storing site to: %s' % path_to_store)
         with open(path_to_store, mode='wb') as file:
+            file.write(bytes(url_data['url'], 'utf-8'))
+            file.write(b'\0')
             file.write(site_content)
 
     def run(self):
