@@ -2,7 +2,6 @@
 #include "common/communication/context.hpp"
 
 #include <easylogging/easylogging++.h>
-#include <thread>
 
 namespace usl::parser
 {

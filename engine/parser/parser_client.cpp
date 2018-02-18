@@ -1,6 +1,10 @@
 #include "parser_client.hpp"
 
+#include "common/fs/file_loader.hpp"
+#include "parser/content/content_parser.hpp"
 #include "file_paths_to_parse_provider.hpp"
+
+#include <thread>
 
 namespace usl::parser
 {
@@ -14,6 +18,10 @@ namespace usl::parser
         while(true)
         {
             const auto path = m_file_paths_provider.get();
+            const auto file_content = common::fs::file_loader{}.load_string(path);
+            m_parser.parse(file_content);
+
+            std::this_thread::sleep_for(std::chrono::seconds{5});
         }
     }
 }
