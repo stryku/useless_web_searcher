@@ -23,11 +23,12 @@ namespace usl
         class url_db_loader
         {
         public:
-            url_db load(url_db_storage storage) const;
-            url_db load(const std::vector<uint8_t>& file_content) const;
+            url_db load(url_db_storage& storage) const;
 
         private:
-            db_entry_view* load_next_entry(const std::vector<uint8_t>& file_content, offset_t offset = 0) const;
+            url_db load(const std::vector<uint8_t>& file_content, url_db& db) const;
+
+            const db_entry_view* load_next_entry(const std::vector<uint8_t>& file_content, offset_t offset = 0) const;
         };
     }
 }

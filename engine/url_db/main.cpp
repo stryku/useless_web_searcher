@@ -1,6 +1,10 @@
 #include "common/communication/server/server_factory.hpp"
 #include "common/communication/server/server.hpp"
 #include "url_db_req_message_handler.hpp"
+#include "url_db/url_db.hpp"
+#include "url_db/url_db_loader.hpp"
+#include "url_db/url_db_storage.hpp"
+#include "common/fs/file_loader.hpp"
 
 #include <easylogging/easylogging++.h>
 
@@ -23,7 +27,11 @@ int main(int argc, char* argv[])
 
     auto server = usl::common::communication::server::server_factory{}.create(bind_address);
 
-    server.set_message_handler(usl::url_db::url_db_req_message_handler{});
+    usl::common::fs::file_loader file_loader;
+    usl::url_db::url_db_storage db_storage{ working_directory, file_loader };
+    usl::url_db::url_db db = usl::url_db::url_db_loader{}.load(db_storage);
+
+    server.set_message_handler(usl::url_db::url_db_req_message_handler{ db });
 
     server.run();
 

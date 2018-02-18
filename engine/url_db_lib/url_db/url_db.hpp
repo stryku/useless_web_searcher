@@ -32,6 +32,8 @@ namespace usl::url_db
         using id_t = uint64_t;
         using url_t = std::string;
 
+        explicit url_db(url_db_storage& storage);
+
         const db_entry_view& get(id_t id) const;
         db_entry_view& get(id_t id);
         void insert(const std::string& url);
@@ -44,6 +46,6 @@ namespace usl::url_db
         std::unordered_set<url_t> m_urls;
         std::queue<id_t> m_not_processed;
 
-        url_db_storage m_storage;
+        url_db_storage& m_storage;
     };
 }

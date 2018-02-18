@@ -6,4 +6,4 @@ FILE(GLOB_RECURSE SRC  *.*pp)
 
 add_executable(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} common easylogging ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} common url_db_lib easylogging ${Boost_LIBRARIES})

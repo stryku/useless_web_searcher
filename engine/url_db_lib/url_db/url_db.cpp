@@ -4,9 +4,13 @@
 
 namespace usl::url_db
 {
+    url_db::url_db(url_db_storage &storage)
+        : m_storage{ storage }
+    {}
+
     const db_entry_view& url_db::get(id_t id) const
     {
-        const auto offset = m_id_to_offset[id];
+        const auto offset = m_id_to_offset.at(id);
         const auto ptr = m_storage.ptr(offset);
 
         return *reinterpret_cast<const db_entry_view*>(ptr);
