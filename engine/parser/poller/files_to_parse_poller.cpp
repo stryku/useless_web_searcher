@@ -23,7 +23,7 @@ namespace usl::parser::poller
 
             zmq::message_t reply;
             m_socket.recv (&reply);
-            std::cout << "Received: " << static_cast<const char*>(reply.data()) << std::endl;
+            LOG(INFO) << "Received: " << static_cast<const char*>(reply.data()) << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds{5});
         }
     }
