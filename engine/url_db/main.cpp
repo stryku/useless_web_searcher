@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
 
     auto server = usl::common::communication::server::server_factory{}.create(bind_address);
 
+    std::ofstream{ working_directory + std::string{ "/url_db" } };
+
     usl::common::fs::file_loader file_loader;
     usl::url_db::url_db_storage db_storage{ working_directory, file_loader };
     usl::url_db::url_db db = usl::url_db::url_db_loader{}.load(db_storage);

@@ -31,7 +31,7 @@ namespace usl::common::db
 
             boost::property_tree::ptree tree;
             tree.put("type", "insert");
-            tree.put("url", "url");
+            tree.put("url", url);
 
             std::ostringstream oss;
             boost::property_tree::write_json(oss, tree);

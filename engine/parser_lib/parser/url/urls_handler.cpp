@@ -5,6 +5,10 @@
 
 namespace usl::parser::url
 {
+    urls_handler::urls_handler(const std::string &db_address)
+        : m_db_requester{ db_address }
+    {}
+
     void urls_handler::handle(const std::string &content)
     {
         const auto urls = urls_extractor{}.extract(content);
@@ -21,6 +25,8 @@ namespace usl::parser::url
         for(const auto url : filtered_urls)
         {
             LOG(INFO) << url;
+            m_db_requester.insert(std::string{ url.data(), url.size() });
         }
     }
+
 }
