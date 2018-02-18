@@ -27,7 +27,7 @@ def main():
             db_msg = db_socket.recv_string()
             print("received from db: %s" % db_msg)
 
-            data = json.load_string(db_msg)
+            data = json.loads(db_msg)
 
 
             """data = {
