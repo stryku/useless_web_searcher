@@ -15,7 +15,7 @@ namespace usl::url_db
         explicit url_db_storage(string_view working_directory);
 
         const data_t& data() const;
-        void* ptr(offset_t offset) const;
+        const uint8_t* ptr(offset_t offset) const;
 
     private:
         data_t m_data;
