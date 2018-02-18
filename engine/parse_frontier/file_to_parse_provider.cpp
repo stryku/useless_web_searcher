@@ -9,8 +9,8 @@ namespace
 
 namespace usl::parse_frontier
 {
-    file_to_parse_provider::file_to_parse_provider(std::experimental::string_view to_parse_directory)
-        : m_to_parse_directory{ to_parse_directory }
+    file_to_parse_provider::file_to_parse_provider(const std::string& working_directory)
+        : m_to_parse_directory{ working_directory + "/to_parse" }
     {}
 
     boost::optional<std::string> file_to_parse_provider::get_file_to_parse()

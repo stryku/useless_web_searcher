@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 
     auto server = usl::common::communication::server::server_factory{}.create(bind_address);
 
-    server.set_message_handler(usl::parse_frontier::request_message_handler{});
+    server.set_message_handler(usl::parse_frontier::request_message_handler{ working_directory });
 
     server.run();
 
