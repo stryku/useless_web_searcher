@@ -22,10 +22,10 @@ namespace usl::url_db
             db.m_id_to_offset[index] = offset;
 
             const auto url = url_db::url_t{ entry->url() };
-            const auto url_size = url.size();
+            const auto url_size = url.size() + 1u; // with null
             db.m_urls.emplace(std::move(url));
 
-            offset += url_size;
+            offset += 1u + url_size;
             ++index;
 
             entry = load_next_entry(file_content, offset);
