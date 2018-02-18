@@ -25,6 +25,11 @@ namespace usl::url_db
             const auto url_size = url.size() + 1u; // with null
             db.m_urls.emplace(std::move(url));
 
+            if(entry->status != 2)
+            {
+                db.m_not_processed.push(index);
+            }
+
             offset += 1u + url_size;
             ++index;
 
