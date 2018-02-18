@@ -1,3 +1,4 @@
+#include <cstring>
 #include "db_entry.hpp"
 
 namespace usl::url_db
@@ -22,5 +23,11 @@ namespace usl::url_db
     const char* const db_entry::url() const
     {
         return &url_begin;
+    }
+
+    size_t db_entry::size() const
+    {
+        //status_size + url_length + null
+        return 1u + std::strlen(url()) + 1u;
     }
 }

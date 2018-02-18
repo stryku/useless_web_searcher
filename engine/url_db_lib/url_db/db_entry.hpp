@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <cstddef>
 
 namespace usl::url_db
 {
@@ -13,6 +14,7 @@ namespace usl::url_db
 
         std::vector<uint8_t> to_binary() const;
         const char* const url() const;
+        size_t size() const;
     };
 #pragma pack()
 }

@@ -11,7 +11,7 @@ namespace usl::common::fs
     {
     public:
         template <typename Buffer>
-        Buffer load(const std::string& path)
+        Buffer load(const std::string& path) const
         {
             std::ifstream t(path, std::ios::binary);
             t.seekg(0, std::ios::end);
