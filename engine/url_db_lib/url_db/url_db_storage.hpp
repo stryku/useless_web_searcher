@@ -17,7 +17,10 @@ namespace usl::url_db
         const data_t& data() const;
         const uint8_t* ptr(offset_t offset) const;
 
+        void insert(const std::string& url);
+
     private:
         data_t m_data;
+        const std::string m_data_file_path;
     };
 }
