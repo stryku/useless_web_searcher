@@ -1,6 +1,7 @@
 #include "url_db_req_message_handler.hpp"
 
 #include "url_db/url_db.hpp"
+#include "url_db/db_entry_to_process.hpp"
 
 #include <boost/property_tree/json_parser.hpp>
 
@@ -30,13 +31,32 @@ namespace usl::url_db
         {
             return insert(tree);
         }
+        if(msg_type == "get_for_processing")
+        {
+            return get_for_processing(tree);
+        }
 
         return zmq::message_t();
     }
 
     zmq::message_t url_db_req_message_handler::get_for_processing(boost::property_tree::ptree& parsed_req)
     {
-        return zmq::message_t();
+        auto to_process = m_db.get_for_processing();
+        if(!to_process)
+        {
+            return zmq::message_t();
+        }
+
+        boost::property_tree::ptree tree;
+        tree.put("url", to_process->url);
+        tree.put("id", to_process->id);
+
+        std::ostringstream oss;
+        boost::property_tree::write_json(oss, tree);
+        const auto str_resp = oss.str();
+        LOG(INFO) << "url_db_req_message_handler get_for_processing sending: " << str_resp;
+
+        return zmq::message_t{ std::cbegin(str_resp), std::cend(str_resp) };
     }
 
     zmq::message_t url_db_req_message_handler::get(boost::property_tree::ptree& parsed_req)
