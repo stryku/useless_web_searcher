@@ -7,7 +7,7 @@
 namespace usl::url_db
 {
 #pragma pack(1)
-    struct db_entry
+    struct db_entry_view
     {
         uint8_t status;
         char url_begin;

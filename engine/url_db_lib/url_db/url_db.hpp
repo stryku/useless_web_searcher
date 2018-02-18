@@ -2,7 +2,7 @@
 
 #include "common/string_view.hpp"
 
-#include "url_db/db_entry.hpp"
+#include "url_db/db_entry_view.hpp"
 #include "url_db/url_db_offset.hpp"
 
 #include <unordered_map>

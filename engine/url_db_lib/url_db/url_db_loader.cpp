@@ -39,13 +39,13 @@ namespace usl::url_db
         return db;
     }
 
-    db_entry* url_db_loader::load_next_entry(const std::vector<uint8_t> &file_content, offset_t offset) const
+    db_entry_view* url_db_loader::load_next_entry(const std::vector<uint8_t> &file_content, offset_t offset) const
     {
         if(offset >= file_content.size())
         {
             return nullptr;
         }
 
-        return reinterpret_cast<db_entry*>(std::next(file_content.data(), offset));
+        return reinterpret_cast<db_entry_view*>(std::next(file_content.data(), offset));
     }
 }

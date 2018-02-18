@@ -2,7 +2,7 @@
 
 #include "common/string_view.hpp"
 
-#include "url_db/db_entry.hpp"
+#include "url_db/db_entry_view.hpp"
 #include "url_db/url_db_offset.hpp"
 
 #include <vector>
@@ -25,7 +25,7 @@ namespace usl
             url_db load(const std::vector<uint8_t>& file_content) const;
 
         private:
-            db_entry* load_next_entry(const std::vector<uint8_t>& file_content, offset_t offset = 0) const;
+            db_entry_view* load_next_entry(const std::vector<uint8_t>& file_content, offset_t offset = 0) const;
 
             const common::fs::file_loader &m_file_loader;
         };

@@ -1,9 +1,9 @@
 #include <cstring>
-#include "db_entry.hpp"
+#include "db_entry_view.hpp"
 
 namespace usl::url_db
 {
-    std::vector<uint8_t> db_entry::to_binary() const
+    std::vector<uint8_t> db_entry_view::to_binary() const
     {
         std::vector<uint8_t> result;
 
@@ -20,12 +20,12 @@ namespace usl::url_db
         return result;
     }
 
-    const char* const db_entry::url() const
+    const char* const db_entry_view::url() const
     {
         return &url_begin;
     }
 
-    size_t db_entry::size() const
+    size_t db_entry_view::size() const
     {
         //status_size + url_length + null
         return 1u + std::strlen(url()) + 1u;
