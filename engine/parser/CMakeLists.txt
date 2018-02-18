@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 3.8)
 
 project(parser)
 
-aux_source_directory(. SRC)
+FILE(GLOB_RECURSE SRC  *.*pp)
 
 add_executable(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} parser_lib ${Boost_LIBRARIES} easylogging ${ZMQ_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(${PROJECT_NAME} common parser_lib ${Boost_LIBRARIES} easylogging ${ZMQ_LIBRARIES})

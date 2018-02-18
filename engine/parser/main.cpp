@@ -1,10 +1,8 @@
-#include "parser/parser_lib.hpp"
+#include "poller/files_to_parse_poller.hpp"
+#include "parser/content/content_parser.hpp"
+#include "parser/url/urls_handler.hpp"
 
 #include <easylogging/easylogging++.h>
-#include <zmq.hpp>
-
-#include <chrono>
-#include <thread>
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -22,23 +20,13 @@ int main(int argc, char* argv[])
     LOG(INFO) << "Parser starting.";
     LOG(INFO) << "Working directory: " << working_directory;
     LOG(INFO) << "Parse frontier address: " << parse_frontier_address;
-
-    zmq::context_t context (1);
-    zmq::socket_t socket (context, ZMQ_REQ);
-
-    LOG(INFO) << "Connecting";
-    socket.connect (parse_frontier_address);
-
-    while(true)
-    {
-        LOG(INFO) << "Sending request";
-        zmq::message_t request;
-        socket.send (request);
-
-        //  Get the reply.
-        zmq::message_t reply;
-        socket.recv (&reply);
-        std::cout << "Received: " << static_cast<const char*>(reply.data()) << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds{5});
-    }
+    
+    usl::parser::content::content_parser content_parser;
+    
+    usl::parser::url::urls_handler urls_handler;
+    content_parser.add_content_handler(urls_handler);
+    
+    usl::parser::poller::files_to_parse_poller poller;
+    
+    poller.run(parse_frontier_address, content_parser);
 }

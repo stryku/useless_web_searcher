@@ -10,8 +10,6 @@ namespace usl::parser::content
     class content_parser
     {
     public:
-
-
         template <typename T>
         void add_content_handler(T content_handler)
         {
