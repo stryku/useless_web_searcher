@@ -1,6 +1,7 @@
 #include "file_paths_to_parse_provider.hpp"
 #include "parser/content/content_parser.hpp"
 #include "parser/url/urls_handler.hpp"
+#include "parser_client.hpp"
 
 #include <easylogging/easylogging++.h>
 
@@ -26,7 +27,7 @@ int main(int argc, char* argv[])
     usl::parser::url::urls_handler urls_handler;
     content_parser.add_content_handler(urls_handler);
 
-    usl::parser::poller::file_paths_to_parse_provider file_paths_provider;
-
-    file_paths_provider.run(parse_frontier_address, content_parser);
+    usl::parser::file_paths_to_parse_provider file_paths_provider{ parse_frontier_address };
+    usl::parser::parser_client client{ file_paths_provider, content_parser };
+    client.run();
 }

@@ -9,17 +9,14 @@ namespace usl::parser
         class content_parser;
     }
 
-    namespace poller
+    class file_paths_to_parse_provider
     {
-        class file_paths_to_parse_provider
-        {
-        public:
-            explicit file_paths_to_parse_provider();
+    public:
+        explicit file_paths_to_parse_provider(const std::string& parse_frontier_address);
 
-            void run(const std::string& parse_frontier_address, content::content_parser& parser);
+        std::string get();
 
-        private:
-            zmq::socket_t m_socket;
-        };
-    }
+    private:
+        zmq::socket_t m_socket;
+    };
 }
