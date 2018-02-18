@@ -6,6 +6,8 @@
 #include "url_db/url_db_offset.hpp"
 #include "url_db/url_db_storage.hpp"
 
+#include <boost/optional.hpp>
+
 #include <unordered_map>
 #include <unordered_set>
 #include <cstdint>
@@ -20,6 +22,10 @@ namespace usl::url_db
     public:
         using id_t = uint64_t;
         using url_t = std::string;
+
+        const db_entry_view& get(id_t id) const;
+
+        void insert(const std::string& url);
 
     private:
         friend class url_db_loader;

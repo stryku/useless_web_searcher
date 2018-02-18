@@ -19,7 +19,7 @@ namespace usl::url_db
         return std::next(m_data.data(), offset);
     }
 
-    void url_db_storage::insert(const std::string &url)
+    offset_t url_db_storage::insert(const std::string &url)
     {
         std::ofstream file{ m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
 
@@ -27,9 +27,13 @@ namespace usl::url_db
         file.write(reinterpret_cast<char*>(&state), sizeof(state));
         file.write(url.data(), url.size() + 1u);
 
+        const auto insert_offset = m_data.size();
+
         m_data.push_back(state);
         const auto url_begin = reinterpret_cast<const uint8_t*>(url.data());
         const auto url_end = std::next(url_begin, url.size() + 1u); //with null
         m_data.insert(m_data.end(), url_begin, url_end);
+
+        return insert_offset;
     }
 }

@@ -23,9 +23,9 @@ namespace usl
 
             const data_t &data() const;
 
-            const uint8_t *ptr(offset_t offset) const;
+            const uint8_t* ptr(offset_t offset) const;
 
-            void insert(const std::string &url);
+            offset_t insert(const std::string &url);
 
         private:
             const std::string m_data_file_path;
