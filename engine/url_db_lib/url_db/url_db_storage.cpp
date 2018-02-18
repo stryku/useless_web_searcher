@@ -24,6 +24,10 @@ namespace usl::url_db
     {
         common::fs::file_guard data_file_guard{ m_data_file_path };
 
-        std::ofstream file{m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
+        std::ofstream file{ m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
+
+        uint8_t state{ 0u };
+        file.write(reinterpret_cast<char*>(&state), sizeof(state));
+        file.write(url.data(), url.size() + 1u);
     }
 }
