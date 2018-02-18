@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace usl::parser::content::details
 {
     class base_content_handler
