@@ -2,13 +2,15 @@
 #include "common/communication/server/server.hpp"
 #include "request_message_handler.hpp"
 
-#include <iostream>
+#include <easylogging/easylogging++.h>
+
+INITIALIZE_EASYLOGGINGPP
 
 int main(int argc, char* argv[])
 {
     if(argc < 3)
     {
-        std::cout << "usage: parse_frontier working_directory_path bind_ip";
+        LOG(ERROR) << "usage: parse_frontier working_directory_path bind_ip";
         return 1;
     }
 
