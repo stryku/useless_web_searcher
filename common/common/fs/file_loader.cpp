@@ -4,14 +4,15 @@
 
 namespace usl::common::fs
 {
-    std::vector<uint8_t > file_loader::load(const std::string& path) const
+    std::string file_loader::load_string(const std::string& path) const
     {
         std::ifstream t(path, std::ios::binary);
         t.seekg(0, std::ios::end);
         const auto size = t.tellg();
-        std::vector<uint8_t> buffer(size);
+        std::string buffer;
+        buffer.resize(size);
         t.seekg(0);
-        t.read(reinterpret_cast<char*>(&buffer[0]), size);
+        t.read(&buffer[0], size);
         return buffer;
     }
 }
