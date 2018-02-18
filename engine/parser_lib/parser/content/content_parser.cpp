@@ -3,3 +3,14 @@
 //
 
 #include "content_parser.hpp"
+
+namespace usl::parser::content
+{
+    void content_parser::parse(const std::string &content)
+    {
+        for(auto& handler : m_content_handlers)
+        {
+            handler->handle(content);
+        }
+    }
+}

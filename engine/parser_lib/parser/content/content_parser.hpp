@@ -18,6 +18,8 @@ namespace usl::parser::content
             m_content_handlers.emplace_back(std::move(handler));
         }
 
+        void parse(const std::string& content);
+
     private:
         std::vector<std::unique_ptr<details::base_content_handler>> m_content_handlers;
     };
