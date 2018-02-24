@@ -1,17 +1,17 @@
 import zmq
 import json
+import sys
 
 
 
 def main():
-    print("Starting fake crawl frontier")
-
+    db_address = 'tcp://localhost:5553' if len(sys.argv) < 2 else sys.argv[1]
+    print("Starting fake crawl frontier. db addres: {}".format(db_address))
     fake_id = 0
     while True:
         context = zmq.Context()
         socket = context.socket(zmq.REP)
         db_socket = context.socket(zmq.REQ)
-        db_address = 'tcp://localhost:5553'
         db_socket.connect(db_address)
         socket.bind("tcp://*:5555")
 
