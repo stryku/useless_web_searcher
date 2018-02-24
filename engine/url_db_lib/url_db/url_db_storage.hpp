@@ -4,7 +4,7 @@
 #include "common/string_view.hpp"
 #include "url_db/url_db_offset.hpp"
 
-#include <ostream>
+#include <fstream>
 #include <vector>
 
 namespace usl
@@ -33,7 +33,10 @@ namespace usl
             void update_state(offset_t offset, common::db::url_state state);
 
         private:
-            void write_state(std::ostream& out, common::db::url_state state);
+            void write_state(std::ostream& out, common::db::url_state state) const;
+
+            void insert_to_file(const std::string &url) const;
+            offset_t insert_to_data(const std::string &url);
 
         private:
             const std::string m_data_file_path;
