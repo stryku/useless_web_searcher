@@ -15,6 +15,12 @@ namespace usl::index::indexer
 
     void index_file::new_hit(common::db::url_id_t id) const
     {
+        if(boost::filesystem::file_size(m_path) == 0)
+        {
+            append_new_id(id);
+            return;
+        }
+
         boost::iostreams::mapped_file file;
         file.open(m_path, boost::iostreams::mapped_file::mapmode::readwrite);
 
@@ -22,8 +28,8 @@ namespace usl::index::indexer
 
         if(!entry)
         {
-            file.close();
             append_new_id(id);
+            return;
         }
 
         ++(entry->hits);

@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     }
 
     const auto working_directory = argv[1];
-    const auto bind_address = argc < 3 ? "tcp://localhost:5552" : argv[2];
+    const auto bind_address = argc < 3 ? "tcp://*:5552" : argv[2];
 
     LOG(INFO) << "Indexer starting.";
     LOG(INFO) << "Working directory: " << working_directory;
