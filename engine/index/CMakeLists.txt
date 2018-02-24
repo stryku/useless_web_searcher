@@ -8,4 +8,4 @@ add_executable(${PROJECT_NAME} ${SRC})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(${PROJECT_NAME} common ${Boost_LIBRARIES} easylogging ${ZMQ_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} common index_lib ${Boost_LIBRARIES} easylogging ${ZMQ_LIBRARIES})

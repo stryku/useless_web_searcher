@@ -1,3 +1,6 @@
+
+include_directories(index_lib)
+add_subdirectory(index_lib)
 add_subdirectory(index)
 
 include_directories(parser_lib)
