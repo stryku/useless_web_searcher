@@ -42,7 +42,7 @@ namespace usl::index::indexer
     {
         std::vector<std::vector<std::string>> sentences;
 
-        for(auto& [name, sentence_child] : tree.get_child("referenced_urls"))
+        for(auto& [name, sentence_child] : tree.get_child("sentences"))
         {
             std::vector<std::string> sentence;
             auto sentence_str = std::string{ sentence_child.data() };
