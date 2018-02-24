@@ -9,7 +9,7 @@ namespace usl::parser::data
     struct parse_data
     {
         const std::string url;
-        const std::string data;
+        const std::string site_content;
         const common::db::url_id_t id;
     };
 }

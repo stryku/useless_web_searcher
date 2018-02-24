@@ -16,7 +16,7 @@ namespace usl::parser::url
         LOG(INFO) << "urls_handler handling: " << parse_data->data().id;
 
         const auto& data = parse_data->data();
-        const auto extracted_urls = urls_extractor{}.extract(data.url, data.data);
+        const auto extracted_urls = urls_extractor{}.extract(data.url, data.site_content);
 
         const auto root_url = info::site_root(data.url);
         const auto filtered_urls = urls_filter{{}}.filter_urls(root_url, data.url, extracted_urls);
