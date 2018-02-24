@@ -1,4 +1,5 @@
 #include "index/indexer/indexes_storage.hpp"
+#include "index/indexer/index_file.hpp"
 
 #include <numeric>
 
@@ -18,8 +19,8 @@ namespace usl::index::indexer
                                   common::db::url_id_t id) const
     {
         const auto path = build_index_path(words_begin, words_end);
-
-
+        const auto file = index_file{ path };
+        file.new_hit(id);
     }
 
     std::string indexes_storage::build_index_path(word_iterator_t words_begin, word_iterator_t words_end) const
