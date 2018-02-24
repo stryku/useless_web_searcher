@@ -9,7 +9,7 @@ namespace usl::parser::content
 {
     std::string extracted_text_cleaner::clean(std::string text) const
     {
-        const auto k_patterns = { '\r', '\t', '\n', '.', ':', '/', '\\', '(', ')' };
+        const auto k_patterns = { '\r', '\t', '\n', '.', ':', '/', '\\', '(', ')', ',' };
         boost::replace_if(text, boost::is_any_of(k_patterns), ' ');
 
         const auto pred = [](char l, char r)
