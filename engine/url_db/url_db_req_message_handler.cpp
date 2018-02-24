@@ -52,6 +52,8 @@ namespace usl::url_db
             return zmq::message_t();
         }
 
+        LOG(INFO) << "url_db_req_message_handler get_for_processing sending: " << to_process->id <<", " << to_process->url;
+
         boost::property_tree::ptree tree;
         tree.put("url", to_process->url);
         tree.put("id", to_process->id);
@@ -59,7 +61,6 @@ namespace usl::url_db
         std::ostringstream oss;
         boost::property_tree::write_json(oss, tree);
         const auto str_resp = oss.str();
-        LOG(INFO) << "url_db_req_message_handler get_for_processing sending: " << str_resp;
 
         return zmq::message_t{ std::cbegin(str_resp), std::cend(str_resp) };
     }
@@ -72,6 +73,7 @@ namespace usl::url_db
     zmq::message_t url_db_req_message_handler::insert(boost::property_tree::ptree& parsed_req)
     {
         const auto url = parsed_req.get<std::string>("url");
+        LOG(INFO) << "url_db_req_message_handler insert: " << url;
         m_db.insert(url);
         return get_ok_message();
     }
@@ -79,7 +81,7 @@ namespace usl::url_db
     zmq::message_t url_db_req_message_handler::update_state_as_processed(boost::property_tree::ptree& parsed_req)
     {
         const auto id = parsed_req.get<common::db::url_id_t>("id");
-
+        LOG(INFO) << "url_db_req_message_handler update_state_as_processed: " << id;
         m_db.update_state_as_processed(id);
         return get_ok_message();
     }
