@@ -60,7 +60,7 @@ namespace usl::index::indexer
         file.write(reinterpret_cast<const char*>(&entry), sizeof(entry));
     }
 
-    std::vector<index_file::index_file_entry> index_file::get_all(common::db::url_id_t id) const
+    std::vector<index_file::index_file_entry> index_file::get_all() const
     {
         boost::iostreams::mapped_file file;
         file.open(m_path, boost::iostreams::mapped_file::mapmode::readwrite);

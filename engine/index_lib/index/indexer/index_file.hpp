@@ -24,7 +24,7 @@ namespace usl::index::indexer
         explicit index_file(const std::string& path);
 
         void new_hit(common::db::url_id_t id) const;
-        std::vector<index_file_entry> get_all(common::db::url_id_t id) const;
+        std::vector<index_file_entry> get_all() const;
 
     private:
         index_file_entry* get_file_entry(boost::iostreams::mapped_file& file, common::db::url_id_t id) const;

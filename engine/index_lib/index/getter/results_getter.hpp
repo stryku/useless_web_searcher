@@ -16,12 +16,13 @@ namespace usl::index
         class results_getter
         {
         public:
-            explicit results_getter(page_rank::page_rank& page_rank);
+            explicit results_getter(page_rank::page_rank& page_rank, const std::string& indexes_dir);
 
             std::vector<page_rank::page_rank_storage_entry> get_results(const std::vector<std::string>& words);
 
         private:
             page_rank::page_rank& m_page_rank;
+            const std::string m_indexes_dir;
         };
     }
 }
