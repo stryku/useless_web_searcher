@@ -56,7 +56,7 @@ namespace usl::url_db
         m_not_processed.pop();
 
         const auto entry_offset = m_id_to_offset[id_to_process];
-        m_storage.update_state(entry_offset, static_cast<uint8_t>(common::db::state_type::processing));
+        m_storage.update_state(entry_offset, static_cast<uint8_t>(common::db::url_state::processing));
 
         const auto& entry = get(id_to_process);
         return db_entry_to_process{ id_to_process, std::string{ entry.url() } };

@@ -2,7 +2,7 @@
 
 namespace usl::common::db
 {
-    enum class state_type : uint8_t
+    enum class url_state : uint8_t
     {
         not_processed,
         processing,
