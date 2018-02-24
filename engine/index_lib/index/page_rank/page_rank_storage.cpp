@@ -21,6 +21,9 @@ namespace usl::index::page_rank
         }
 
 
+        boost::iostreams::mapped_file file;
+        file.open(m_storage_file_path, boost::iostreams::mapped_file::mapmode::readwrite);
+
     }
 
     bool page_rank_storage::need_grow(common::db::url_id_t id) const
@@ -38,5 +41,12 @@ namespace usl::index::page_rank
     {
         const auto new_file_size = get_entry_offset(id) + sizeof(page_rank_storage_entry);
         boost::filesystem::resize_file(m_storage_file_path, new_file_size);
+    }
+
+    page_rank_storage_entry& page_rank_storage::get_file_entry(boost::iostreams::mapped_file &file,
+                                                               common::db::url_id_t id) const
+    {
+        auto entry_ptr = std::next(file.data(), get_entry_offset(id));
+        return *reinterpret_cast<page_rank_storage_entry*>(entry_ptr);
     }
 }

@@ -2,6 +2,8 @@
 
 #include "common/db/url_id.hpp"
 
+#include <boost/iostreams/device/mapped_file.hpp>
+
 #include <string>
 
 namespace usl::index::page_rank
@@ -22,6 +24,8 @@ namespace usl::index::page_rank
         offset_t get_entry_offset(common::db::url_id_t id) const;
 
         void grow(common::db::url_id_t id) const;
+        page_rank_storage_entry& get_file_entry(boost::iostreams::mapped_file& file,
+                                                common::db::url_id_t id) const;
 
     private:
         const std::string m_storage_file_path;
