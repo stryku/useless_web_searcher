@@ -12,4 +12,9 @@ namespace usl::index::page_rank
         const auto current_rank = m_page_rank_storage.get_rank(id);
         m_page_rank_storage.update(id, current_rank + k_page_reference_points);
     }
+
+    double page_rank::get_rank(common::db::url_id_t id) const
+    {
+        return m_page_rank_storage.get_rank(id);
+    }
 }
