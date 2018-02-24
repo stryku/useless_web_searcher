@@ -6,7 +6,6 @@
 
 #include <boost/iostreams/device/mapped_file.hpp>
 
-#include <fstream>
 #include <vector>
 
 namespace usl
@@ -35,12 +34,11 @@ namespace usl
             void update_state(offset_t offset, common::db::url_state state);
 
         private:
-            void write_state(boost::iostreams::mapped_file& out, common::db::url_state state) const;
+            void write_state(boost::iostreams::mapped_file& file, offset_t offset, common::db::url_state state) const;
 
+            void prepare_file_for_insertion(const std::string& url) const;
             void insert_to_file(const std::string &url) const;
             offset_t insert_to_data(const std::string &url);
-
-            std::fstream open_file() const;
 
         private:
             const std::string m_data_file_path;

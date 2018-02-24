@@ -3,7 +3,6 @@
 #include "common/fs/file_loader.hpp"
 #include <boost/filesystem.hpp>
 
-
 namespace usl::url_db
 {
     url_db_storage::url_db_storage(const std::string& working_directory, const common::fs::file_loader& file_loader)
@@ -35,43 +34,38 @@ namespace usl::url_db
     void url_db_storage::update_state(offset_t offset, common::db::url_state state)
     {
         m_data[offset] = static_cast<uint8_t>(state);
+
         boost::iostreams::mapped_file file;
         file.open(m_data_file_path, boost::iostreams::mapped_file::mapmode::readwrite);
-
-        auto file_data = file.data();
-        file_data[offset] = static_cast<uint8_t>(state);
-
-//        write_state(file, state);
+        write_state(file, offset, state);
     }
 
-    void url_db_storage::write_state(boost::iostreams::mapped_file& out, common::db::url_state state) const
+    void url_db_storage::write_state(boost::iostreams::mapped_file& file,
+                                     offset_t offset,
+                                     common::db::url_state state) const
     {
-//        auto ptr = out.data() +
-
-//        out.write(reinterpret_cast<const char*>(&state), sizeof(state));
+        auto file_data = file.data();
+        file_data[offset] = static_cast<uint8_t>(state);
     }
 
     void url_db_storage::insert_to_file(const std::string &url) const
     {
+        prepare_file_for_insertion(url);
         const auto url_size_with_null = url.size() + 1u;
         auto insert_offset = m_data.size();
 
-        const auto new_file_size = m_data.size() + 1u + url_size_with_null;
-
-        boost::filesystem::resize_file(m_data_file_path, new_file_size);
-
+        // write: [state][url...]['\0']
         boost::iostreams::mapped_file file;
         file.open(m_data_file_path, boost::iostreams::mapped_file::mapmode::readwrite);
         auto file_data_ptr = file.data();
 
-        file_data_ptr[insert_offset] = static_cast<uint8_t>(common::db::url_state::not_processed);
+        write_state(file, insert_offset, common::db::url_state::not_processed);
         ++insert_offset;
-        std::copy(url.data(), url.data() + url_size_with_null, file_data_ptr + insert_offset);
-        //auto file = open_file();
 
-
-        //write_state(file, common::db::url_state::not_processed);
-        //file.write(url.data(), url_size_with_null);
+        auto file_dest = std::next(file_data_ptr, insert_offset);
+        const auto url_begin = url.data();
+        const auto url_end = std::next(url.data(), url_size_with_null);
+        std::copy(url_begin, url_end, file_dest);
     }
 
     offset_t url_db_storage::insert_to_data(const std::string &url)
@@ -87,9 +81,10 @@ namespace usl::url_db
         return insert_offset;
     }
 
-    std::fstream url_db_storage::open_file() const
+    void url_db_storage::prepare_file_for_insertion(const std::string &url) const
     {
-
-        return std::fstream{ m_data_file_path, std::ios::binary };
+        const auto url_size_with_null = url.size() + 1u;
+        const auto new_file_size = m_data.size() + 1u + url_size_with_null;
+        boost::filesystem::resize_file(m_data_file_path, new_file_size);
     }
 }
