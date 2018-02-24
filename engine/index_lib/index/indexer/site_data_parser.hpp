@@ -6,6 +6,7 @@
 
 #include <unordered_set>
 #include <string>
+#include <vector>
 
 namespace usl::index::indexer
 {
@@ -19,5 +20,6 @@ namespace usl::index::indexer
     private:
         common::db::url_id_t extract_id(boost::property_tree::ptree& tree) const;
         std::unordered_set<common::db::url_id_t> extract_referenced_urls(boost::property_tree::ptree& tree) const;
+        std::vector<std::vector<std::string>> extract_sentences(boost::property_tree::ptree& tree) const;
     };
 }
