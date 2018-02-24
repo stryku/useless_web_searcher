@@ -20,10 +20,10 @@ namespace usl::index::page_rank
             grow(id);
         }
 
-
         boost::iostreams::mapped_file file;
         file.open(m_storage_file_path, boost::iostreams::mapped_file::mapmode::readwrite);
-
+        auto& entry = get_file_entry(file, id);
+        entry.rank = rank;
     }
 
     bool page_rank_storage::need_grow(common::db::url_id_t id) const
