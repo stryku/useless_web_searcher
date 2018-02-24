@@ -24,6 +24,11 @@ namespace usl::parser::content
         auto tag_begin = body_bounds.first;
         auto next_tag = get_next_tag(tag_begin);
 
+        if(is_script_tag(next_tag))
+        {
+
+        }
+
     }
 
     text_content_extractor::pos_bounds_t text_content_extractor::find_next_text(text_content_extractor::pos_t from) const
@@ -32,15 +37,16 @@ namespace usl::parser::content
         return { from, next_tag_begin };
     }
 
-    string_view text_content_extractor::get_next_tag(text_content_extractor::pos_t tag_start) const
+    pos_bounds_t text_content_extractor::get_next_tag(text_content_extractor::pos_t tag_start) const
     {
         const auto tag_end = m_site_content.find('>', tag_start);
-        const auto tag_size = tag_end - tag_start;
-        return string_view{ m_site_content.c_str(), tag_size };
+        return pos_bounds_t{ tag_start, tag_end };
     }
 
-    bool text_content_extractor::is_script_tag(string_view tag) const
+    bool text_content_extractor::is_script_tag(pos_bounds_t tag) const
     {
-        return tag.find("<script") == pos_t{ 0u };
+        const auto tag_view_begin = std::next(m_site_content.c_str(), tag.first);
+        const auto tag_view = string_view{ tag_view_begin };
+        return tag_view.find("<script") == pos_t{ 0u };
     }
 }
