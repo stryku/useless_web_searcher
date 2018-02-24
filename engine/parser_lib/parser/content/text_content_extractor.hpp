@@ -23,7 +23,10 @@ namespace usl::parser::content
         pos_bounds_t get_next_tag(pos_t tag_start) const;
 
         bool is_script_tag(pos_bounds_t tag) const;
-        pos_t skip_script_tag()
+        // Returns pos after </script>
+        pos_t skip_script_tag(pos_bounds_t begin_script_tag_bounds) const;
+        // Returns pos after tag >
+        pos_t skip_next_tag(pos_t current_pos) const;
 
     private:
         const std::string& m_site_content;
