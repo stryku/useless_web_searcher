@@ -2,6 +2,8 @@
 
 #include <boost/algorithm/string.hpp>
 #include <boost/range/algorithm/replace_if.hpp>
+#include <boost/regex.hpp>
+#include <easylogging/easylogging++.h>
 
 namespace usl::parser::content
 {
@@ -16,6 +18,41 @@ namespace usl::parser::content
         };
 
         auto end = std::unique(text.begin(), text.end(), pred);
+        const auto result = std::string{ text.begin(), end };
+
+        end = remove_special_html_characters(text.begin(), end);
+
+        LOG(INFO) << std::string{ text.begin(), end };
+
         return std::string{ text.begin(), end };
+    }
+
+    std::string::iterator extracted_text_cleaner::remove_special_html_characters(std::string::iterator begin, std::string::iterator end) const
+    {
+        auto dest = begin;
+        auto src = begin;
+
+        std::string tmp;
+
+        while(src != end)
+        {
+            if(*src == '&')
+            {
+                while(*src++ != ';')
+                {
+                    if(src == end)
+                    {
+                        return dest;
+                    }
+                }
+            }
+            else
+            {
+                tmp += *src;
+                *dest++ = *src++;
+            }
+        }
+
+        return dest;
     }
 }

@@ -8,5 +8,8 @@ namespace usl::parser::content
     {
     public:
         std::string clean(std::string text) const;
+
+    private:
+        std::string::iterator remove_special_html_characters(std::string::iterator begin, std::string::iterator end) const;
     };
 }
