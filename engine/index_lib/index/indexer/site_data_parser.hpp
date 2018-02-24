@@ -1,9 +1,11 @@
 #pragma once
 
+#include "common/db/url_id.hpp"
+
 #include <boost/property_tree/ptree.hpp>
 
+#include <unordered_set>
 #include <string>
-#include <common/db/url_id.hpp>
 
 namespace usl::index::indexer
 {
@@ -16,5 +18,6 @@ namespace usl::index::indexer
 
     private:
         common::db::url_id_t extract_id(boost::property_tree::ptree& tree) const;
+        std::unordered_set<common::db::url_id_t> extract_referenced_urls(boost::property_tree::ptree& tree) const;
     };
 }

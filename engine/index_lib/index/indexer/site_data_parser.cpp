@@ -17,14 +17,7 @@ namespace usl::index::indexer
         parsed_site_data parsed;
 
         parsed.id = extract_id(tree);
-
-        for(auto& [name, url] : tree.get_child("referenced_urls"))
-        {
-            parsed.referenced_urls.insert(std::stoul(url.data()));
-        }
-
-
-
+        parsed.referenced_urls = extract_referenced_urls(tree);
 
         return parsed_site_data();
     }
@@ -32,6 +25,19 @@ namespace usl::index::indexer
     common::db::url_id_t site_data_parser::extract_id(boost::property_tree::ptree &tree) const
     {
         return tree.get<common::db::url_id_t>("id");
+    }
+
+    std::unordered_set<common::db::url_id_t>
+    site_data_parser::extract_referenced_urls(boost::property_tree::ptree &tree) const
+    {
+        std::unordered_set<common::db::url_id_t> urls;
+
+        for(auto& [name, url] : tree.get_child("referenced_urls"))
+        {
+            urls.insert(std::stoul(url.data()));
+        }
+
+        return urls;
     }
 }
 
