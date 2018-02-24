@@ -14,10 +14,10 @@
 
 namespace usl::common::db
 {
-    class url_db_requester
+    class url_db_interface
     {
     public:
-        explicit url_db_requester(const std::string& db_address);
+        explicit url_db_interface(const std::string& db_address);
 
         std::string insert(const std::string& url);
         std::string get(size_t id);

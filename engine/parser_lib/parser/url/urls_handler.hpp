@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/db/url_db_requester.hpp"
+#include "common/db/url_db_interface.hpp"
 
 #include <easylogging/easylogging++.h>
 
@@ -14,6 +14,6 @@ namespace usl::parser::url
         void handle(const std::string& url, const std::string& content, size_t id);
 
     private:
-        common::db::url_db_requester m_db_requester;
+        common::db::url_db_interface m_db_requester;
     };
 }

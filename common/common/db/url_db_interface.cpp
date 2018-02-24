@@ -1,15 +1,15 @@
-#include "common/db/url_db_requester.hpp"
+#include "common/db/url_db_interface.hpp"
 
 namespace usl::common::db
 {
-    url_db_requester::url_db_requester(const std::string& db_address)
+    url_db_interface::url_db_interface(const std::string& db_address)
         : m_socket{ communication::context, ZMQ_REQ }
     {
         LOG(INFO) << "url_db_requester connecting to: " << db_address;
         m_socket.connect(db_address);
     }
 
-    std::string url_db_requester::insert(const std::string &url)
+    std::string url_db_interface::insert(const std::string &url)
     {
         LOG(INFO) << "url_db_requester insert: " << url;
 
@@ -34,7 +34,7 @@ namespace usl::common::db
         return str_reply;
     }
 
-    std::string url_db_requester::get(size_t id)
+    std::string url_db_interface::get(size_t id)
     {
         LOG(INFO) << "url_db_requester get: " << id;
 
