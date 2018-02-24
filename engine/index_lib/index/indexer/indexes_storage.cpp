@@ -47,7 +47,7 @@ namespace usl::index::indexer
                 separator = '/';
                 break_counter = 0u;
             }
-            path.append(separator);
+            path += separator;
         }
 
         return m_indexes_dir + '/' + path;
@@ -59,7 +59,7 @@ namespace usl::index::indexer
         std::string::size_type size;
         const auto pred = [](auto current, auto word_it)
         {
-            return current + word_it->size();
+            return current + word_it.size();
         };
 
         const auto words_length = std::accumulate(words_begin, words_end, std::string::size_type{}, pred);

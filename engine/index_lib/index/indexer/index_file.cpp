@@ -32,8 +32,8 @@ namespace usl::index::indexer
     index_file::index_file_entry* index_file::get_file_entry(boost::iostreams::mapped_file &file,
                                                              common::db::url_id_t id) const
     {
-        auto entries_begin = static_cast<index_file_entry*>(file.data());
-        const auto entries_end = static_cast<const index_file_entry*>(file.end());
+        auto entries_begin = reinterpret_cast<index_file_entry*>(file.data());
+        const auto entries_end = reinterpret_cast<const index_file_entry*>(file.end());
 
         for(; entries_begin != entries_end; std::advance(entries_begin, 1u))
         {

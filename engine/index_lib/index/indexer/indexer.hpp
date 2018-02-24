@@ -28,7 +28,7 @@ namespace usl::index
 
         private:
             page_rank::page_rank& m_page_rank;
-            content_indexer&& m_content_indexer;
+            content_indexer& m_content_indexer;
         };
     }
 }

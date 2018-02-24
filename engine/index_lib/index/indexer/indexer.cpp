@@ -15,7 +15,7 @@ namespace usl::index::indexer
     {
         const auto parsed_site_data = site_data_parser{}.parse(site_data);
         update_ranks(parsed_site_data);
-        m_content_indexer.index(site_data);
+        m_content_indexer.index(parsed_site_data);
     }
 
     void indexer::update_ranks(const parsed_site_data &site_data) const
