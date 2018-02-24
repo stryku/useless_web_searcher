@@ -1,6 +1,7 @@
 import zmq
 import json
 import sys
+import time
 
 
 
@@ -25,15 +26,21 @@ def main():
                     'type': 'get_for_processing'
                 }
                 db_json_str = json.dumps(db_req_data)
-                db_socket.send_string(db_json_str)
-                db_msg = db_socket.recv_string()
-                print("received from db: %s" % db_msg)
+                db_msg = ''
 
-                if len(db_msg) > 0:
-                    data = json.loads(db_msg)
-                    json_str = json.dumps(data)
-                    print("Sending response: %s" % json_str)
-                    socket.send_string(json_str)
+                while len(db_msg) == 0:
+                    db_socket.send_string(db_json_str)
+                    db_msg = db_socket.recv_string()
+
+                    if len(db_msg) > 0:
+                        print("received from db: {}, {}".format(len(db_msg), db_msg))
+                        data = json.loads(db_msg)
+                        json_str = json.dumps(data)
+                        print("Sending response: %s" % json_str)
+                        socket.send_string(json_str)
+                    else:
+                        time.sleep(1)
+
         except Exception as ex:
             print(ex)
 
