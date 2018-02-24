@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 {
     if(argc < 3)
     {
-        LOG(ERROR) << "usage: parse_frontier working_directory_path bind_ip";
+        LOG(ERROR) << "usage: url_db working_directory_path bind_ip";
         return 1;
     }
 
