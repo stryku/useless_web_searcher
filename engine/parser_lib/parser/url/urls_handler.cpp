@@ -27,5 +27,7 @@ namespace usl::parser::url
         {
             m_db_requester.insert(std::string{ url.data(), url.size() });
         }
+
+        parse_data->set_extracted_urls(std::move(filtered_urls));
     }
 }

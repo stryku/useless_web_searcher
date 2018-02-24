@@ -21,10 +21,7 @@ namespace usl::parser::content
         const auto cleaned_text = extracted_text_cleaner{}.clean(extracted_text);
         const auto sentences = extracted_text_splitter{}.split(cleaned_text);
 
-        for(const auto& sentence : sentences)
-        {
-            LOG(INFO) << boost::join(sentence, " ** ");
-        }
+        parse_data->set_sentences(std::move(sentences));
 
         LOG(INFO) << "content_handler handling: " << parse_data->data().id << " done";
     }

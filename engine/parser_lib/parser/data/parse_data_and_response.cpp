@@ -24,4 +24,14 @@ namespace usl::parser::data
                                                          data,
                                                          std::move(response));
     }
+
+    void parse_data_and_response::set_sentences(std::vector<std::string> sentences)
+    {
+        m_sentences = std::move(sentences);
+    }
+
+    void parse_data_and_response::set_extracted_urls(url::urls_collection_t urls)
+    {
+        m_extracted_urls = std::move(urls);
+    }
 }

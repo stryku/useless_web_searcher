@@ -2,10 +2,13 @@
 
 #include "common/db/url_db_interface.hpp"
 
+#include <memory>
+
 namespace usl::parser
 {
     namespace data
     {
+        struct parse_data;
         class parse_data_and_response;
     }
 
