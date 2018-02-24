@@ -13,9 +13,9 @@ namespace usl::index::indexer
     }
 
 
-    void indexes_storage::update(indexes_storage::word_iterator_t words_begin,
-                                 indexes_storage::word_iterator_t words_end,
-                                 common::db::url_id_t id) const
+    void indexes_storage::new_hit(indexes_storage::word_iterator_t words_begin,
+                                  indexes_storage::word_iterator_t words_end,
+                                  common::db::url_id_t id) const
     {
 
     }
