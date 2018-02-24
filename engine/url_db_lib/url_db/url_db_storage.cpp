@@ -1,6 +1,5 @@
 #include "url_db/url_db_storage.hpp"
 
-#include "common/db/url_state.hpp"
 #include "common/fs/file_loader.hpp"
 
 
@@ -33,7 +32,7 @@ namespace usl::url_db
         const auto url_size_with_null = url.size() + 1u;
 
         const auto kState = common::db::url_state::not_processed;
-        file.write(reinterpret_cast<const char*>(&kState), sizeof(kState));
+        write_state(file, kState);
         file.write(url.data(), url_size_with_null);
 
         const auto insert_offset = m_data.size();
@@ -46,12 +45,17 @@ namespace usl::url_db
         return insert_offset;
     }
 
-    void url_db_storage::update_state(offset_t offset, uint8_t state)
+    void url_db_storage::update_state(offset_t offset, common::db::url_state state)
     {
-        m_data[offset] = state;
+        m_data[offset] = static_cast<uint8_t>(state);
         std::ofstream file{ m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
 
         file.seekp(offset);
-        file.write(reinterpret_cast<char*>(&state), sizeof(state));
+        write_state(file, state);
+    }
+
+    void url_db_storage::write_state(std::ostream& out, common::db::url_state state)
+    {
+        out.write(reinterpret_cast<const char*>(&state), sizeof(state));
     }
 }

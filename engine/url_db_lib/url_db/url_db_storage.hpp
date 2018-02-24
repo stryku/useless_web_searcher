@@ -1,8 +1,10 @@
 #pragma once
 
+#include "common/db/url_state.hpp"
 #include "common/string_view.hpp"
 #include "url_db/url_db_offset.hpp"
 
+#include <ostream>
 #include <vector>
 
 namespace usl
@@ -28,7 +30,10 @@ namespace usl
 
             offset_t insert(const std::string &url);
 
-            void update_state(offset_t offset, uint8_t state);
+            void update_state(offset_t offset, common::db::url_state state);
+
+        private:
+            void write_state(std::ostream& out, common::db::url_state state);
 
         private:
             const std::string m_data_file_path;
