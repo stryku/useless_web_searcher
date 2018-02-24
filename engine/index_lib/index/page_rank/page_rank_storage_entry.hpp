@@ -5,7 +5,7 @@
 
 namespace usl::index::page_rank
 {
-    struct page_rank_entry
+    struct page_rank_storage_entry
     {
         common::db::url_id_t id;
         double rank;

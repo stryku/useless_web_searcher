@@ -6,7 +6,7 @@
 
 namespace usl::index::page_rank
 {
-    struct page_rank_entry;
+    struct page_rank_storage_entry;
 
     class page_rank_storage
     {
