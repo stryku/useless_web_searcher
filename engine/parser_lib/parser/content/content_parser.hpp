@@ -5,22 +5,30 @@
 #include <memory>
 #include <vector>
 
-namespace usl::parser::content
+namespace usl::parser
 {
-    class content_parser
+    namespace data
     {
-    public:
-        template <typename T>
-        void add_content_handler(T content_handler)
+        class parse_data_and_response;
+    }
+
+    namespace content
+    {
+        class content_parser
         {
-            using handler_t = details::content_handler_impl<T>;
-            auto handler = std::make_unique<handler_t>(std::move(content_handler));
-            m_content_handlers.emplace_back(std::move(handler));
-        }
+        public:
+            template<typename T>
+            void add_content_handler(T content_handler)
+            {
+                using handler_t = details::content_handler_impl<T>;
+                auto handler = std::make_unique<handler_t>(std::move(content_handler));
+                m_content_handlers.emplace_back(std::move(handler));
+            }
 
-        void parse(const std::string& url, const std::string& content, size_t id);
+            void parse(std::shared_ptr<data::parse_data_and_response> data_and_response);
 
-    private:
-        std::vector<std::unique_ptr<details::base_content_handler>> m_content_handlers;
-    };
+        private:
+            std::vector<std::unique_ptr<details::base_content_handler>> m_content_handlers;
+        };
+    }
 }

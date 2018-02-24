@@ -8,13 +8,19 @@ namespace usl::parser
     {
         class content_parser;
     }
+    namespace data
+    {
+        class parse_data_and_response_factory;
+    }
 
     class file_paths_to_parse_provider;
 
     class parser_client
     {
     public:
-        parser_client(file_paths_to_parse_provider& file_paths_provider, content::content_parser& parser);
+        parser_client(file_paths_to_parse_provider& file_paths_provider,
+                      content::content_parser& parser,
+                      data::parse_data_and_response_factory& parse_data_factory);
 
         void run();
 
@@ -29,5 +35,6 @@ namespace usl::parser
 
         file_paths_to_parse_provider& m_file_paths_provider;
         content::content_parser& m_parser;
+        data::parse_data_and_response_factory& m_parse_data_factory;
     };
 }

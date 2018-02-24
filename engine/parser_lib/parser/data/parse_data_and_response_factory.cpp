@@ -10,8 +10,8 @@ namespace usl::parser::data
                                                                                      const std::string &content,
                                                                                      common::db::url_id_t id) const
     {
-        return std::make_shared<parse_data_and_response>(parse_data{ url, content, id },
-                                                         response::unique_response{ m_db_address, id });
+        return parse_data_and_response::create(parse_data{ url, content, id },
+                                               response::unique_response{ m_db_address, id });
     }
 }
 

@@ -1,16 +1,12 @@
-//
-// Created by stryku on 18.02.18.
-//
-
 #include "content_parser.hpp"
 
 namespace usl::parser::content
 {
-    void content_parser::parse(const std::string& url, const std::string& content, size_t id)
+    void content_parser::parse(std::shared_ptr<data::parse_data_and_response> parse_data)
     {
         for(auto& handler : m_content_handlers)
         {
-            handler->handle(url, content, id);
+            handler->handle(parse_data);
         }
     }
 }
