@@ -11,8 +11,8 @@ namespace usl::parser::content
 
     private:
         using pos_t = std::string::size_type;
-        using body_bounds_t = std::pair<pos_t, pos_t>;
+        using pos_bounds_t = std::pair<pos_t, pos_t>;
 
-        body_bounds_t find_body_pos(const std::string& site_content) const;
+        pos_bounds_t find_body_pos(const std::string& site_content) const;
     };
 }
