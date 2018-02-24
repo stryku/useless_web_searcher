@@ -26,6 +26,7 @@ namespace usl::index::indexer
         };
 
         index_file_entry* get_file_entry(boost::iostreams::mapped_file& file, common::db::url_id_t id) const;
+        void append_new_id(common::db::url_id_t id) const;
 
         const std::string m_path;
     };
