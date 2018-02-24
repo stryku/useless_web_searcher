@@ -5,8 +5,8 @@
 
 namespace usl::url_db
 {
-    url_db_storage::url_db_storage(string_view working_directory, const common::fs::file_loader& file_loader)
-        : m_data_file_path{ working_directory.data() + std::string { "/url_db" } }
+    url_db_storage::url_db_storage(const std::string& working_directory, const common::fs::file_loader& file_loader)
+        : m_data_file_path{ working_directory + std::string { "/url_db" } }
         , m_data{ file_loader.load<data_t>(m_data_file_path) }
     {}
 

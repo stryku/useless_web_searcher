@@ -21,7 +21,7 @@ namespace usl
         public:
             using data_t = std::vector<uint8_t>;
 
-            explicit url_db_storage(string_view working_directory, const common::fs::file_loader& file_loader);
+            explicit url_db_storage(const std::string& working_directory, const common::fs::file_loader& file_loader);
 
             const data_t &data() const;
 
