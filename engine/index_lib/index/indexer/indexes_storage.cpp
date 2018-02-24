@@ -38,6 +38,7 @@ namespace usl::index::indexer
             ++break_counter;
             if(words_begin == words_end)
             {
+                path.append(".___idx___");
                 break;
             }
 
