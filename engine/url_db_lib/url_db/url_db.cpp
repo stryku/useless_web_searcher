@@ -27,11 +27,12 @@ namespace usl::url_db
         return *reinterpret_cast<db_entry_view*>(ptr);
     }
 
-    void url_db::insert(const std::string &url)
+    common::db::url_id_t url_db::insert(const std::string &url)
     {
-        if(m_urls.find(url) != m_urls.cend())
+        const auto found = m_url_to_id.find(url);
+        if(found != m_url_to_id.cend())
         {
-            return;
+            return found->second;
         }
 
         const auto inserted_offset = m_storage.insert(url);
@@ -43,6 +44,9 @@ namespace usl::url_db
         m_id_to_offset[new_id] = inserted_offset;
         m_not_processed.push(new_id);
         LOG(INFO) << "url_db::inserted  " << new_id << ": " << url;
+        m_url_to_id[url] = new_id;
+
+        return new_id;
     }
 
     boost::optional<db_entry_to_process> url_db::get_for_processing()

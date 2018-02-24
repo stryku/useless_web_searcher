@@ -20,14 +20,16 @@ namespace usl::parser::url
 
         const auto root_url = info::site_root(data.url);
         const auto filtered_urls = urls_filter{{}}.filter_urls(root_url, data.url, extracted_urls);
+        std::unordered_set<common::db::url_id_t> urls_ids;
 
         LOG(INFO) << "urls_handler filtered urls: " << filtered_urls.size();
 
         for(const auto url : filtered_urls)
         {
-            m_db_requester.insert(std::string{ url.data(), url.size() });
+            const auto result = m_db_requester.insert(std::string{ url.data(), url.size() });
+            urls_ids.insert(result.id);
         }
 
-        parse_data->set_extracted_urls(std::move(filtered_urls));
+        parse_data->set_extracted_urls(std::move(urls_ids));
     }
 }

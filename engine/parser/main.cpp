@@ -11,23 +11,25 @@ INITIALIZE_EASYLOGGINGPP
 
 int main(int argc, char* argv[])
 {
-    if(argc < 4)
+    if(argc < 5)
     {
-        LOG(ERROR) << "usage: parser working_directory_path parse_frontier_address";
+        LOG(ERROR) << "usage: parser working_directory_path parse_frontier_address index_address";
         return 1;
     }
 
     const auto working_directory = argv[1];
     const auto parse_frontier_address = argv[2];
     const auto db_address = argv[3];
+    const auto index_address = argv[4];
 
     LOG(INFO) << "Parser starting.";
     LOG(INFO) << "Working directory: " << working_directory;
     LOG(INFO) << "Parse frontier address: " << parse_frontier_address;
     LOG(INFO) << "URL database address: " << db_address;
+    LOG(INFO) << "Index address: " << index_address;
 
     usl::parser::data::parse_data_handler content_parser;
-    usl::parser::data::parse_data_and_response_factory parse_data_factory{ db_address };
+    usl::parser::data::parse_data_and_response_factory parse_data_factory{ db_address, index_address };
 
     usl::parser::url::urls_handler urls_handler{ db_address };
     usl::parser::content::content_handler content_handler{ db_address };

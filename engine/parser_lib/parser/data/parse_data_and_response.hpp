@@ -32,8 +32,8 @@ namespace usl::parser::data
 
         const parse_data& data() const;
 
-        void set_sentences(std::vector<std::string> sentences);
-        void set_extracted_urls(url::urls_collection_t urls);
+        void set_sentences(std::vector<std::vector<std::string>> sentences);
+        void set_extracted_urls(std::unordered_set<common::db::url_id_t> urls);
 
 
     private:
@@ -45,7 +45,5 @@ namespace usl::parser::data
     private:
         const parse_data m_data;
         std::unique_ptr<response::unique_response> m_response;
-        std::vector<std::string> m_sentences;
-        url::urls_collection_t m_extracted_urls;
     };
 }

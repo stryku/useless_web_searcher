@@ -74,8 +74,17 @@ namespace usl::url_db
     {
         const auto url = parsed_req.get<std::string>("url");
         LOG(INFO) << "url_db_req_message_handler insert: " << url;
-        m_db.insert(url);
-        return get_ok_message();
+        const auto id = m_db.insert(url);
+
+        boost::property_tree::ptree tree;
+        tree.put("url", url);
+        tree.put("id", id);
+
+        std::ostringstream oss;
+        boost::property_tree::write_json(oss, tree);
+        const auto str_resp = oss.str();
+
+        return zmq::message_t{ std::cbegin(str_resp), std::cend(str_resp) };
     }
 
     zmq::message_t url_db_req_message_handler::update_state_as_processed(boost::property_tree::ptree& parsed_req)

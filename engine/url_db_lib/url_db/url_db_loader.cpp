@@ -23,6 +23,7 @@ namespace usl::url_db
 
             const auto url = url_db::url_t{ entry->url() };
             const auto url_size = url.size() + 1u; // with null
+            db.m_url_to_id.emplace(url, index);
             db.m_urls.emplace(std::move(url));
 
             if(static_cast<common::db::url_state>(entry->status) != common::db::url_state::processed)

@@ -1,6 +1,9 @@
 #include "common/db/url_db_interface.hpp"
 #include "common/db/url_db_request_keys.hpp"
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
 #include <easylogging/easylogging++.h>
 
 namespace usl::common::db
@@ -9,9 +12,15 @@ namespace usl::common::db
         : communication::server::server_interface{ db_address }
     {}
 
-    std::string url_db_interface::insert(const std::string &url)
+    url_db_interface::insert_result url_db_interface::insert(const std::string &url)
     {
-        return send_and_recv(common::db::request_keys::k_insert, "url", url);
+        auto response = send_and_recv(common::db::request_keys::k_insert, "url", url);
+        std::istringstream iss(std::move(response));
+
+        boost::property_tree::ptree tree;
+        boost::property_tree::read_json(iss, tree);
+
+        return insert_result{ tree.get<std::string>("url"), tree.get<common::db::url_id_t>("id") };
     }
 
     std::string url_db_interface::get(common::db::url_id_t id)
