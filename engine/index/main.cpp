@@ -1,6 +1,8 @@
 #include "common/communication/server/server_factory.hpp"
 #include "common/communication/server/server.hpp"
 
+#include "index_request_handler.hpp"
+
 #include <easylogging/easylogging++.h>
 
 INITIALIZE_EASYLOGGINGPP
@@ -21,6 +23,10 @@ int main(int argc, char* argv[])
     LOG(INFO) << "Bind address: " << bind_address;
 
     auto server = usl::common::communication::server::server_factory{}.create(bind_address);
+
+    usl::index::index_request_handler request_handler;
+    server.set_message_handler(std::move(request_handler));
+
     server.run();
 
     return 0;

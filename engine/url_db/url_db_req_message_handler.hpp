@@ -22,6 +22,7 @@ namespace usl::url_db
         zmq::message_t update_state_as_processed(boost::property_tree::ptree& parsed_req);
 
         zmq::message_t get_ok_message() const;
+
     private:
         url_db& m_db;
     };
