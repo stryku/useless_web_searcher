@@ -2,6 +2,7 @@
 
 #include "common/fs/file_creator.hpp"
 
+#include <algorithm>
 #include <iterator>
 #include <fstream>
 
@@ -57,5 +58,19 @@ namespace usl::index::indexer
         std::ofstream file{ m_path, std::ios::app | std::ios::binary };
         index_file_entry entry{ id, 1u };
         file.write(reinterpret_cast<const char*>(&entry), sizeof(entry));
+    }
+
+    std::vector<index_file::index_file_entry> index_file::get_all(common::db::url_id_t id) const
+    {
+        boost::iostreams::mapped_file file;
+        file.open(m_path, boost::iostreams::mapped_file::mapmode::readwrite);
+        std::vector<index_file::index_file_entry> entries;
+
+        auto entries_begin = reinterpret_cast<const index_file_entry*>(file.data());
+        auto entries_end = reinterpret_cast<const index_file_entry*>(file.end());
+
+        std::copy(entries_begin, entries_end, std::back_inserter(entries));
+
+        return entries;
     }
 }

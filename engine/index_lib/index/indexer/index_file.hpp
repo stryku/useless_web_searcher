@@ -5,17 +5,13 @@
 #include <boost/iostreams/device/mapped_file.hpp>
 
 #include <string>
+#include <vector>
 
 namespace usl::index::indexer
 {
     class index_file
     {
     public:
-        explicit index_file(const std::string& path);
-
-        void new_hit(common::db::url_id_t id) const;
-
-    private:
         using hits_t = uint64_t;
         using offset_t = uint64_t;
 
@@ -25,6 +21,12 @@ namespace usl::index::indexer
             hits_t hits;
         };
 
+        explicit index_file(const std::string& path);
+
+        void new_hit(common::db::url_id_t id) const;
+        std::vector<index_file_entry> get_all(common::db::url_id_t id) const;
+
+    private:
         index_file_entry* get_file_entry(boost::iostreams::mapped_file& file, common::db::url_id_t id) const;
         void append_new_id(common::db::url_id_t id) const;
 
