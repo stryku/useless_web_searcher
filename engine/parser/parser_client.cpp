@@ -33,8 +33,8 @@ namespace usl::parser
             LOG(INFO) << "parser_client got: " << id;
 
             auto parse_data = m_parse_data_factory.create(extracted_data.url,
-                                                                extracted_data.url,
-                                                                id);
+                                                          extracted_data.site_content,
+                                                          id);
 
             m_parser.parse(parse_data);
         }

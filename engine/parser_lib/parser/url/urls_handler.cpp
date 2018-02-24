@@ -21,6 +21,8 @@ namespace usl::parser::url
         const auto root_url = info::site_root(data.url);
         const auto filtered_urls = urls_filter{{}}.filter_urls(root_url, data.url, extracted_urls);
 
+        LOG(INFO) << "urls_handler filtered urls: " << filtered_urls.size();
+
         for(const auto url : filtered_urls)
         {
             m_db_requester.insert(std::string{ url.data(), url.size() });
