@@ -51,7 +51,15 @@ namespace usl::index::page_rank
 
     double page_rank_storage::get_rank(common::db::url_id_t id) const
     {
-        return 0;
+        if(!is_in_file(id))
+        {
+            return 0.;
+        }
+
+        boost::iostreams::mapped_file file;
+        file.open(m_storage_file_path, boost::iostreams::mapped_file::mapmode::readwrite);
+        const auto& entry = get_file_entry(file, id);
+        return entry.rank;
     }
 
     bool page_rank_storage::is_in_file(common::db::url_id_t id) const
