@@ -21,6 +21,7 @@ namespace usl::common::communication::server
         }
 
         std::string send_and_recv(const std::string& type, const std::string& field, const std::string& field_value);
+        std::string send_and_recv(const std::string& str_msg);
 
     private:
         zmq::socket_t m_socket;

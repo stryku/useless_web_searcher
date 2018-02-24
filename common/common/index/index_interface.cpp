@@ -19,11 +19,13 @@ namespace usl::common::index
                                                    const std::unordered_set<common::db::url_id_t> &extracted_urls,
                                                    common::db::url_id_t id)
     {
+        const auto formatted_msg = format_process_sentences_msg(sentences, extracted_urls, id);
+        return send_and_recv(formatted_msg);
     }
 
     std::string index_interface::format_process_sentences_msg(const std::vector<std::vector<std::string>> &sentences,
                                                               const std::unordered_set<common::db::url_id_t> &extracted_urls,
-                                                              common::db::url_id_t id)
+                                                              common::db::url_id_t id) const
     {
         std::ostringstream oss;
         boost::property_tree::ptree tree;

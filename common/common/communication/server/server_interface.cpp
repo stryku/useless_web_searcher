@@ -27,8 +27,11 @@ namespace usl::common::communication::server
         std::ostringstream oss;
         boost::property_tree::write_json(oss, tree);
 
-        const auto str_msg = oss.str();
+        return send_and_recv(oss.str());
+    }
 
+    std::string server_interface::send_and_recv(const std::string &str_msg)
+    {
         zmq::message_t msg{ str_msg.begin(), str_msg.end() };
         m_socket.send(msg);
 
