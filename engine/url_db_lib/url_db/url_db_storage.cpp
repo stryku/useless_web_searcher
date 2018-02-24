@@ -34,7 +34,7 @@ namespace usl::url_db
     void url_db_storage::update_state(offset_t offset, common::db::url_state state)
     {
         m_data[offset] = static_cast<uint8_t>(state);
-        std::ofstream file{ m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
+        auto file = open_file();
 
         file.seekp(offset);
         write_state(file, state);
@@ -49,7 +49,7 @@ namespace usl::url_db
     {
         const auto url_size_with_null = url.size() + 1u;
 
-        std::ofstream file{ m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
+        auto file = open_file();
 
         write_state(file, common::db::url_state::not_processed);
         file.write(url.data(), url_size_with_null);
@@ -66,5 +66,10 @@ namespace usl::url_db
         m_data.insert(m_data.end(), url_begin, url_end);
 
         return insert_offset;
+    }
+
+    std::ofstream url_db_storage::open_file() const
+    {
+        return std::ofstream{ m_data_file_path, std::ios::out | std::ios::app | std::ios::binary };
     }
 }

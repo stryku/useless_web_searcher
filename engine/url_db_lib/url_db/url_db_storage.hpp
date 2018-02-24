@@ -38,6 +38,8 @@ namespace usl
             void insert_to_file(const std::string &url) const;
             offset_t insert_to_data(const std::string &url);
 
+            std::ofstream open_file() const;
+
         private:
             const std::string m_data_file_path;
             data_t m_data;
