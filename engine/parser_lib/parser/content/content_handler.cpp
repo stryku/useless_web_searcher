@@ -16,7 +16,8 @@ namespace usl::parser::content
     void content_handler::handle(std::shared_ptr<data::parse_data_and_response> parse_data)
     {
         LOG(INFO) << "content_handler handling: " << parse_data->data().id;
-        const auto extracted_text = text_content_extractor{ parse_data->data().site_content };
+        const auto extracted_text = text_content_extractor{ parse_data->data().site_content }.extract();
+        const auto cleaned_text = extracted_text_cleaner{}.clean(extracted_text);
 
 
         LOG(INFO) << "content_handler handling: " << parse_data->data().id << " done";
