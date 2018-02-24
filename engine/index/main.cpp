@@ -9,14 +9,14 @@ INITIALIZE_EASYLOGGINGPP
 
 int main(int argc, char* argv[])
 {
-    if(argc < 3)
+    if(argc < 2)
     {
         LOG(ERROR) << "usage: index working_directory_path bind_ip";
         return 1;
     }
 
     const auto working_directory = argv[1];
-    const auto bind_address = argv[2];
+    const auto bind_address = argc < 3 ? "tcp://localhost:5552" : argv[2];
 
     LOG(INFO) << "Indexer starting.";
     LOG(INFO) << "Working directory: " << working_directory;
