@@ -22,13 +22,6 @@ namespace usl::url_db
     class url_db
     {
     public:
-        enum class state_type : uint8_t
-        {
-            not_processed,
-            processing,
-            processed
-        };
-
         using id_t = uint64_t;
         using url_t = std::string;
 
