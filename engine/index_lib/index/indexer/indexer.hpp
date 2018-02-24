@@ -2,17 +2,30 @@
 
 #include <string>
 
-namespace usl::index::indexer
+namespace usl::index
 {
-    struct parsed_site_data;
-
-    class indexer
+    namespace page_rank
     {
-    public:
-        // Accepts json: { url: id, referenced_urls: { url: id, url: id... }, sentences [ sentence, sentence... ] }
-        void index(const std::string& site_data);
+        class page_rank;
+    }
 
-    private:
-        parsed_site_data parse_site_data(const std::string& site_data) const;
-    };
+    namespace indexer
+    {
+        struct parsed_site_data;
+
+        class indexer
+        {
+        public:
+            explicit indexer(page_rank::page_rank& pr);
+
+            // Accepts json: { url: id, referenced_urls: { url: id, url: id... }, sentences [ sentence, sentence... ] }
+            void index(const std::string &site_data);
+
+        private:
+            void update_ranks(const parsed_site_data &site_data) const;
+
+        private:
+            page_rank::page_rank& m_page_rank;
+        };
+    }
 }
