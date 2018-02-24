@@ -19,7 +19,7 @@ namespace usl::parser::data
     public:
         parse_data_and_response(private_creation_t,
                                 parse_data data,
-                                response::unique_response response);
+                                std::unique_ptr<response::unique_response> response);
 
         parse_data_and_response(const parse_data_and_response&) = delete;
         parse_data_and_response& operator=(const parse_data_and_response&) = delete;
@@ -33,10 +33,11 @@ namespace usl::parser::data
     private:
         friend class parse_data_and_response_factory;
 
-        static std::shared_ptr<parse_data_and_response> create(parse_data data, response::unique_response response);
+        static std::shared_ptr<parse_data_and_response> create(parse_data data,
+                                                               std::unique_ptr<response::unique_response> response);
 
     private:
-        const parse_data& m_data;
-        const response::unique_response m_response;
+        const parse_data m_data;
+        std::unique_ptr<response::unique_response> m_response;
     };
 }

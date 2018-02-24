@@ -29,7 +29,10 @@ namespace usl::parser
             const auto str_id = boost::filesystem::basename(path);
             const auto id = std::stoul(str_id);
             const auto extracted_data = extract_url_and_site(file_content);
-            const auto parse_data = m_parse_data_factory.create(extracted_data.url,
+
+            LOG(INFO) << "parser_client got: " << id;
+
+            auto parse_data = m_parse_data_factory.create(extracted_data.url,
                                                                 extracted_data.url,
                                                                 id);
 

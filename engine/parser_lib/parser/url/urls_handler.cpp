@@ -13,6 +13,8 @@ namespace usl::parser::url
 
     void urls_handler::handle(std::shared_ptr<data::parse_data_and_response> parse_data)
     {
+        LOG(INFO) << "urls_handler handling: " << parse_data->data().id;
+
         const auto& data = parse_data->data();
         const auto extracted_urls = urls_extractor{}.extract(data.url, data.data);
 

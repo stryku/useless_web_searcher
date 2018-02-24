@@ -12,18 +12,16 @@ namespace usl::parser::data
 
     parse_data_and_response::parse_data_and_response(private_creation_t,
                                                      parse_data data,
-                                                     response::unique_response response)
-        : m_data(std::move(data))
+                                                     std::unique_ptr<response::unique_response> response)
+        : m_data(data)
         , m_response{ std::move(response) }
     {}
 
     std::shared_ptr<parse_data_and_response> parse_data_and_response::create(parse_data data,
-                                                                             response::unique_response response)
+                                                                             std::unique_ptr<response::unique_response> response)
     {
-
-
         return std::make_shared<parse_data_and_response>(private_creation_t{},
-                                                         std::move(data),
+                                                         data,
                                                          std::move(response));
     }
 }
