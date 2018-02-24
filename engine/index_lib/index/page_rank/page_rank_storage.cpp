@@ -20,8 +20,8 @@ namespace usl::index::page_rank
 
     bool page_rank_storage::need_grow(common::db::url_id_t id) const
     {
-
-        return false;
+        const auto file_size = boost::filesystem::file_size(m_storage_file_path);
+        return file_size < get_entry_offset(id);
     }
 
     page_rank_storage::offset_t page_rank_storage::get_entry_offset(common::db::url_id_t id) const
