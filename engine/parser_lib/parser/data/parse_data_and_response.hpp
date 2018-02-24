@@ -5,6 +5,8 @@
 
 namespace usl::parser::data
 {
+    class parse_data_and_response_factory;
+
     class parse_data_and_response
     {
     public:
@@ -18,9 +20,11 @@ namespace usl::parser::data
 
 
     private:
+        friend class parse_data_and_response_factory;
+
         parse_data_and_response(parse_data data, response::unique_response m_response);
 
-
+    private:
         const parse_data& m_data;
         const response::unique_response m_response;
     };
