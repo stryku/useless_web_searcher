@@ -17,6 +17,8 @@ namespace usl::index::indexer
                                   indexes_storage::word_iterator_t words_end,
                                   common::db::url_id_t id) const
     {
+        const auto path = build_index_path(words_begin, words_end);
+
 
     }
 
