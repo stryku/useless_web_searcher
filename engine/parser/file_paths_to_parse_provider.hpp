@@ -4,9 +4,9 @@
 
 namespace usl::parser
 {
-    namespace content
+    namespace data
     {
-        class content_parser;
+        class parse_data_handler;
     }
 
     class file_paths_to_parse_provider

@@ -4,9 +4,9 @@
 
 namespace usl::parser
 {
-    namespace content
+    namespace data
     {
-        class content_parser;
+        class parse_data_handler;
     }
     namespace data
     {
@@ -19,7 +19,7 @@ namespace usl::parser
     {
     public:
         parser_client(file_paths_to_parse_provider& file_paths_provider,
-                      content::content_parser& parser,
+                      data::parse_data_handler& parser,
                       data::parse_data_and_response_factory& parse_data_factory);
 
         void run();
@@ -34,7 +34,7 @@ namespace usl::parser
         url_and_site extract_url_and_site(const std::string& file_content);
 
         file_paths_to_parse_provider& m_file_paths_provider;
-        content::content_parser& m_parser;
+        data::parse_data_handler& m_parser;
         data::parse_data_and_response_factory& m_parse_data_factory;
     };
 }

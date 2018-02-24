@@ -1,7 +1,7 @@
 #include "parser_client.hpp"
 
 #include "common/fs/file_loader.hpp"
-#include "parser/content/content_parser.hpp"
+#include "parser/data/parse_data_handler.hpp"
 #include "parser/data/parse_data_and_response_factory.hpp"
 
 #include "file_paths_to_parse_provider.hpp"
@@ -13,7 +13,7 @@
 namespace usl::parser
 {
     parser_client::parser_client(file_paths_to_parse_provider& file_paths_provider,
-                                 content::content_parser& parser,
+                                 data::parse_data_handler& parser,
                                  parser::data::parse_data_and_response_factory& parse_data_factory)
         : m_file_paths_provider{ file_paths_provider }
         , m_parser{ parser }

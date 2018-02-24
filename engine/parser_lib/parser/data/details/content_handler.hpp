@@ -3,14 +3,11 @@
 #include <memory>
 #include <string>
 
-namespace usl::parser
+namespace usl::parser::data
 {
-    namespace data
-    {
-        class parse_data_and_response;
-    }
+    class parse_data_and_response;
 
-    namespace content::details
+    namespace details
     {
         class base_content_handler
         {

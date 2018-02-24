@@ -1,6 +1,6 @@
 #pragma once
 
-#include "parser/content/details/content_handler.hpp"
+#include "parser/data/details/content_handler.hpp"
 
 #include <memory>
 #include <vector>
@@ -9,12 +9,7 @@ namespace usl::parser
 {
     namespace data
     {
-        class parse_data_and_response;
-    }
-
-    namespace content
-    {
-        class content_parser
+        class parse_data_handler
         {
         public:
             template<typename T>

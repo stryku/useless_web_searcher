@@ -1,5 +1,5 @@
 #include "file_paths_to_parse_provider.hpp"
-#include "parser/content/content_parser.hpp"
+#include "parser/data/parse_data_handler.hpp"
 #include "parser/data/parse_data_and_response_factory.hpp"
 #include "parser/url/urls_handler.hpp"
 #include "parser_client.hpp"
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     LOG(INFO) << "Parse frontier address: " << parse_frontier_address;
     LOG(INFO) << "URL database address: " << db_address;
 
-    usl::parser::content::content_parser content_parser;
+    usl::parser::data::parse_data_handler content_parser;
     usl::parser::data::parse_data_and_response_factory parse_data_factory{ db_address };
 
     usl::parser::url::urls_handler urls_handler{ db_address };
