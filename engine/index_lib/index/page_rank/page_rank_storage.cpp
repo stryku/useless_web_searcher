@@ -1,4 +1,5 @@
-#include "page_rank_storage.hpp"
+#include "index/page_rank/page_rank_storage.hpp"
+#include "index/page_rank/page_rank_storage_entry.hpp"
 
 #include "common/fs/file_creator.hpp"
 
@@ -21,5 +22,10 @@ namespace usl::index::page_rank
     {
 
         return false;
+    }
+
+    page_rank_storage::offset_t page_rank_storage::get_entry_offset(common::db::url_id_t id) const
+    {
+        return id * sizeof(page_rank_storage_entry);
     }
 }
