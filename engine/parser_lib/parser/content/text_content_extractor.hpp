@@ -20,7 +20,7 @@ namespace usl::parser::content
         pos_bounds_t find_body_pos() const;
         std::string extract_text(const pos_bounds_t& body_bounds) const;
         pos_bounds_t find_next_text(pos_t from) const;
-        string_view get_next_tag(pos_t from) const;
+        string_view get_next_tag(pos_t tag_start) const;
 
     private:
         const std::string& m_site_content;

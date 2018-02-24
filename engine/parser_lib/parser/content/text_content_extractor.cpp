@@ -31,9 +31,10 @@ namespace usl::parser::content
         return { from, next_tag_begin };
     }
 
-    string_view text_content_extractor::get_next_tag(text_content_extractor::pos_t from) const
+    string_view text_content_extractor::get_next_tag(text_content_extractor::pos_t tag_start) const
     {
-
-        return usl::string_view();
+        const auto tag_end = m_site_content.find('>', tag_start);
+        const auto tag_size = tag_end - tag_start;
+        return string_view{ m_site_content.c_str(), tag_size };
     }
 }
