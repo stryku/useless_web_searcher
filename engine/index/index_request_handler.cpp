@@ -28,6 +28,10 @@ namespace usl::index
         {
             return handle_process_sentences(tree);
         }
+        if(msg_type == common::index::request_keys::k_process_sentences)
+        {
+            return handle_get(tree);
+        }
 
         return zmq::message_t();
     }
@@ -36,6 +40,13 @@ namespace usl::index
     {
         LOG(INFO) << "index_request_handler handling process_sentences";
         m_indexer.index(parsed_request.get_child("site_content"));
+        return zmq::message_t();
+    }
+
+    zmq::message_t index_request_handler::handle_get(boost::property_tree::ptree &parsed_request)
+    {
+        LOG(INFO) << "index_request_handler handling process_sentences";
+        m_indexer.index(parsed_request.get_child("id"));
         return zmq::message_t();
     }
 

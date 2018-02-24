@@ -20,6 +20,7 @@ namespace usl::index
 
     private:
         zmq::message_t handle_process_sentences(boost::property_tree::ptree& parsed_request);
+        zmq::message_t handle_get(boost::property_tree::ptree& parsed_request);
 
     private:
         indexer::indexer& m_indexer;
