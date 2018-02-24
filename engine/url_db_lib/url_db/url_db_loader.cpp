@@ -25,7 +25,7 @@ namespace usl::url_db
             const auto url_size = url.size() + 1u; // with null
             db.m_urls.emplace(std::move(url));
 
-            if(entry->status != 2)
+            if(static_cast<common::db::url_state>(entry->status) != common::db::url_state::processed)
             {
                 db.m_not_processed.push(index);
             }
