@@ -25,6 +25,6 @@ namespace usl::index::indexer
 
     void indexer::index_content(const parsed_site_data &site_data) const
     {
-
+        const
     }
 }
