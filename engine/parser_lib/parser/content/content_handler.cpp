@@ -5,6 +5,7 @@
 #include "parser/content/extracted_text_splitter.hpp"
 #include "parser/data/parse_data_and_response.hpp"
 
+#include <boost/algorithm/string/join.hpp>
 #include <easylogging/easylogging++.h>
 
 namespace usl::parser::content
@@ -18,7 +19,12 @@ namespace usl::parser::content
         LOG(INFO) << "content_handler handling: " << parse_data->data().id;
         const auto extracted_text = text_content_extractor{ parse_data->data().site_content }.extract();
         const auto cleaned_text = extracted_text_cleaner{}.clean(extracted_text);
+        const auto sentences = extracted_text_splitter{}.split(cleaned_text);
 
+        for(const auto& sentence : sentences)
+        {
+            LOG(INFO) << boost::join(sentence, " ** ");
+        }
 
         LOG(INFO) << "content_handler handling: " << parse_data->data().id << " done";
     }

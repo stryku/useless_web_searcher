@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
 
     usl::parser::url::urls_handler urls_handler{ db_address };
     usl::parser::content::content_handler content_handler{ db_address };
-    content_parser.add_content_handler(std::move(urls_handler));
     content_parser.add_content_handler(std::move(content_handler));
+    content_parser.add_content_handler(std::move(urls_handler));
 
     usl::parser::file_paths_to_parse_provider file_paths_provider{ parse_frontier_address };
     usl::parser::parser_client client{ file_paths_provider, content_parser, parse_data_factory };

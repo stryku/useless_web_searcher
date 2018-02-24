@@ -19,11 +19,19 @@ namespace usl::parser::content
 
             while(i < splitted.size())
             {
-                sentence.emplace_back(std::move(splitted[i++]));
-
-                if(is_end_of_sentence(splitted[i++]))
+                if(splitted[i].empty())
                 {
-                    break;
+                    ++i;
+                }
+                else
+                {
+                    const auto is_end = is_end_of_sentence(splitted[i]);
+                    sentence.emplace_back(std::move(splitted[i++]));
+
+                    if (is_end)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -38,6 +46,11 @@ namespace usl::parser::content
 
     bool extracted_text_splitter::is_end_of_sentence(const std::string &word) const
     {
+        if(word.empty())
+        {
+            return false;
+        }
+
         const auto k_patterns = { '.', '?', '!' };
         const auto pred = [last_char = word.back()](auto c)
         {

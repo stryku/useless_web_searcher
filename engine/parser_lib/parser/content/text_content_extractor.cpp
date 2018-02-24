@@ -15,7 +15,7 @@ namespace usl::parser::content
     text_content_extractor::pos_bounds_t text_content_extractor::find_body_bounds() const
     {
         const auto begin = m_site_content.find("<body");
-        const auto end = m_site_content.rfind("</body", begin);
+        const auto end = m_site_content.rfind("</body");
         return { begin, end };
     }
 
@@ -80,7 +80,7 @@ namespace usl::parser::content
         }
         else
         {
-            return next_tag.second;
+            return next_tag.second + 1u;
         }
     }
 }
