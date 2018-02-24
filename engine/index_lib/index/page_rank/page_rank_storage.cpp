@@ -15,6 +15,11 @@ namespace usl::index::page_rank
 
     void page_rank_storage::update(common::db::url_id_t id, double rank)
     {
+        if(need_grow(id))
+        {
+            grow(id);
+        }
+
 
     }
 
@@ -27,5 +32,11 @@ namespace usl::index::page_rank
     page_rank_storage::offset_t page_rank_storage::get_entry_offset(common::db::url_id_t id) const
     {
         return id * sizeof(page_rank_storage_entry);
+    }
+
+    void page_rank_storage::grow(common::db::url_id_t id) const
+    {
+        const auto new_file_size = get_entry_offset(id) + sizeof(page_rank_storage_entry);
+        boost::filesystem::resize_file(m_storage_file_path, new_file_size);
     }
 }

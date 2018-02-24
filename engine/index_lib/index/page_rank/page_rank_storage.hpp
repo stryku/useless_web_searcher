@@ -21,6 +21,8 @@ namespace usl::index::page_rank
         bool need_grow(common::db::url_id_t id) const;
         offset_t get_entry_offset(common::db::url_id_t id) const;
 
+        void grow(common::db::url_id_t id) const;
+
     private:
         const std::string m_storage_file_path;
     };
