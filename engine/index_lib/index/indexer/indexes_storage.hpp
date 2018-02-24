@@ -21,6 +21,7 @@ namespace usl::index::indexer
         std::string build_index_path(word_iterator_t words_begin, word_iterator_t words_end) const;
         std::string::size_type predict_path_size(word_iterator_t words_begin, word_iterator_t words_end) const;
 
+    private:
         const std::string m_indexes_dir;
     };
 }
