@@ -11,7 +11,7 @@ namespace usl::url_db
         : m_storage{ storage }
     {}
 
-    const db_entry_view& url_db::get(id_t id) const
+    const db_entry_view& url_db::get(common::db::url_id_t id) const
     {
         const auto offset = m_id_to_offset.at(id);
         const auto ptr = m_storage.ptr(offset);
@@ -19,7 +19,7 @@ namespace usl::url_db
         return *reinterpret_cast<const db_entry_view*>(ptr);
     }
 
-    db_entry_view& url_db::get(url_db::id_t id)
+    db_entry_view& url_db::get(common::db::url_id_t id)
     {
         const auto offset = m_id_to_offset[id];
         const auto ptr = m_storage.ptr(offset);

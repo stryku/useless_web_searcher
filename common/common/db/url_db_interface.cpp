@@ -34,7 +34,7 @@ namespace usl::common::db
         return str_reply;
     }
 
-    std::string url_db_interface::get(size_t id)
+    std::string url_db_interface::get(common::db::url_id_t id)
     {
         LOG(INFO) << "url_db_requester get: " << id;
 

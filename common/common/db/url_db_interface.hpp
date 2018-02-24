@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/communication/context.hpp"
+#include "common/db/url_id.hpp"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -20,7 +21,7 @@ namespace usl::common::db
         explicit url_db_interface(const std::string& db_address);
 
         std::string insert(const std::string& url);
-        std::string get(size_t id);
+        std::string get(common::db::url_id_t id);
 
     private:
         zmq::socket_t m_socket;

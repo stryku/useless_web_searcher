@@ -15,7 +15,7 @@ namespace usl::url_db
     {
         auto entry = load_next_entry(file_content);
         offset_t offset{ 0u };
-        url_db::id_t index{ 0u };
+        common::db::url_id_t index{ 0u };
 
         while(entry)
         {
