@@ -31,6 +31,7 @@ namespace usl::url_db
         db_entry_view& get(common::db::url_id_t id);
         void insert(const std::string& url);
         boost::optional<db_entry_to_process> get_for_processing();
+        void update_state_as_processed(common::db::url_id_t id);
 
     private:
         friend class url_db_loader;

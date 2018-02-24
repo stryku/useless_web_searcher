@@ -1,5 +1,8 @@
 #include "url_db_req_message_handler.hpp"
 
+#include "common/db/url_db_request_keys.hpp"
+#include "common/db/url_id.hpp"
+
 #include "url_db/url_db.hpp"
 #include "url_db/db_entry_to_process.hpp"
 
@@ -25,13 +28,17 @@ namespace usl::url_db
         boost::property_tree::read_json(iss, tree);
 
         const auto msg_type = tree.get<std::string>("type");
-        if(msg_type == "insert")
+        if(msg_type == common::db::request_keys::k_insert)
         {
             return insert(tree);
         }
-        if(msg_type == "get_for_processing")
+        if(msg_type == common::db::request_keys::k_get_for_processing)
         {
             return get_for_processing(tree);
+        }
+        if(msg_type == common::db::request_keys::k_update_state_as_processed)
+        {
+            return update_state_as_processed(tree);
         }
 
         return zmq::message_t();
@@ -65,11 +72,21 @@ namespace usl::url_db
     zmq::message_t url_db_req_message_handler::insert(boost::property_tree::ptree& parsed_req)
     {
         const auto url = parsed_req.get<std::string>("url");
-
         m_db.insert(url);
+        return get_ok_message();
+    }
 
+    zmq::message_t url_db_req_message_handler::update_state_as_processed(boost::property_tree::ptree& parsed_req)
+    {
+        const auto id = parsed_req.get<common::db::url_id_t>("id");
+
+        m_db.update_state_as_processed(id);
+        return get_ok_message();
+    }
+
+    zmq::message_t url_db_req_message_handler::get_ok_message() const
+    {
         const auto ok = string_view{ "ok" };
-
         return zmq::message_t{ std::cbegin(ok), std::cend(ok) };
     }
 }

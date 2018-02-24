@@ -61,4 +61,18 @@ namespace usl::url_db
         const auto& entry = get(id_to_process);
         return db_entry_to_process{ id_to_process, std::string{ entry.url() } };
     }
+
+    void url_db::update_state_as_processed(common::db::url_id_t id)
+    {
+        const auto offset_found_pair = m_id_to_offset.find(id);
+
+        if(offset_found_pair == m_id_to_offset.cend())
+        {
+            return;
+        }
+
+        m_storage.update_state(offset_found_pair->second, common::db::url_state::processed);
+        LOG(INFO) << "url_db updated state of  " << id << " to: "
+                  << static_cast<uint8_t>(common::db::url_state::processed);
+    }
 }

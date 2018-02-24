@@ -1,8 +1,11 @@
-//
-// Created by stryku on 24.02.18.
-//
+#pragma once
 
-#ifndef USELESS_WEB_SEARCHER_URL_DB_REQUESTS_KEYS_HPP
-#define USELESS_WEB_SEARCHER_URL_DB_REQUESTS_KEYS_HPP
+#include <string>
 
-#endif //USELESS_WEB_SEARCHER_URL_DB_REQUESTS_KEYS_HPP
+namespace usl::common::db::request_keys
+{
+    extern const std::string k_get;
+    extern const std::string k_insert;
+    extern const std::string k_update_state_as_processed;
+    extern const std::string k_get_for_processing;
+}

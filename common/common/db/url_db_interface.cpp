@@ -1,4 +1,5 @@
 #include "common/db/url_db_interface.hpp"
+#include "common/db/url_db_request_keys.hpp"
 
 namespace usl::common::db
 {
@@ -11,17 +12,17 @@ namespace usl::common::db
 
     std::string url_db_interface::insert(const std::string &url)
     {
-        return send_and_recv("insert", "url", url);
+        return send_and_recv(common::db::request_keys::k_insert, "url", url);
     }
 
     std::string url_db_interface::get(common::db::url_id_t id)
     {
-        return send_and_recv("get", "id", id);
+        return send_and_recv(common::db::request_keys::k_get, "id", id);
     }
 
     std::string url_db_interface::update_state_as_processed(common::db::url_id_t id)
     {
-        return send_and_recv("update_state_as_processed", "id", id);
+        return send_and_recv(common::db::request_keys::k_update_state_as_processed, "id", id);
     }
 
     std::string url_db_interface::send_and_recv(const std::string &type,
@@ -31,7 +32,7 @@ namespace usl::common::db
         LOG(INFO) << "url_db_interface " << type << " " << field_value;
 
         boost::property_tree::ptree tree;
-        tree.put("type", "update_state_as_processed");
+        tree.put("type", type);
         tree.put(field, field_value);
 
         std::ostringstream oss;
