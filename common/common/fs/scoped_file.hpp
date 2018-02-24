@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/string_view.hpp"
+#include "common/fs/file_creator.hpp
 
 #include <boost/filesystem.hpp>
 
@@ -14,7 +15,7 @@ namespace usl::common::fs
         explicit scoped_file(string_view path)
             : m_path{ path.data() }
         {
-            std::ofstream{ m_path };
+            file_creator{ this->path() };
         }
 
         ~scoped_file()
