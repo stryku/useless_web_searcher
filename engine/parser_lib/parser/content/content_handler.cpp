@@ -13,6 +13,9 @@ namespace usl::parser::content
     void content_handler::handle(std::shared_ptr<data::parse_data_and_response> parse_data)
     {
         LOG(INFO) << "content_handler handling: " << parse_data->data().id;
+
+
+
         LOG(INFO) << "content_handler handling: " << parse_data->data().id << " done";
     }
 }
