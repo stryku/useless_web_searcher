@@ -2,7 +2,7 @@
 
 #include "common/db/url_db_interface.hpp"
 
-namespace usl::parse::response
+namespace usl::parser::response
 {
     unique_response::unique_response(const std::string &db_address, common::db::url_id_t processed_id)
         : m_db_address{ db_address }

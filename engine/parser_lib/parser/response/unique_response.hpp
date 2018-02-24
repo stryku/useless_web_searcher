@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace usl::parse::response
+namespace usl::parser::response
 {
     class unique_response
     {
