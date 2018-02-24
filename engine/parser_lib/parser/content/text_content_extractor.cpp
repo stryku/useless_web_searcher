@@ -22,6 +22,7 @@ namespace usl::parser::content
     std::string text_content_extractor::extract_text(const text_content_extractor::pos_bounds_t& body_bounds) const
     {
         auto tag_begin = body_bounds.first;
+        auto next_tag = get_next_tag(tag_begin);
 
     }
 
@@ -36,5 +37,10 @@ namespace usl::parser::content
         const auto tag_end = m_site_content.find('>', tag_start);
         const auto tag_size = tag_end - tag_start;
         return string_view{ m_site_content.c_str(), tag_size };
+    }
+
+    bool text_content_extractor::is_script_tag(string_view tag) const
+    {
+        return tag.find("<script") == pos_t{ 0u };
     }
 }

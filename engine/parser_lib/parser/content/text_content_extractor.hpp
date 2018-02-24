@@ -22,6 +22,8 @@ namespace usl::parser::content
         pos_bounds_t find_next_text(pos_t from) const;
         string_view get_next_tag(pos_t tag_start) const;
 
+        bool is_script_tag(string_view tag) const;
+
     private:
         const std::string& m_site_content;
     };
