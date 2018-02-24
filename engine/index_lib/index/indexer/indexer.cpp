@@ -12,6 +12,7 @@ namespace usl::index::indexer
     void indexer::index(const std::string &site_data)
     {
         const auto parsed_site_data = site_data_parser{}.parse(site_data);
+        update_ranks(parsed_site_data);
     }
 
     void indexer::update_ranks(const parsed_site_data &site_data) const
@@ -20,5 +21,10 @@ namespace usl::index::indexer
         {
             m_page_rank.new_page_reference(referenced_url);
         }
+    }
+
+    void indexer::index_content(const parsed_site_data &site_data) const
+    {
+
     }
 }

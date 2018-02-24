@@ -23,6 +23,7 @@ namespace usl::index
 
         private:
             void update_ranks(const parsed_site_data &site_data) const;
+            void index_content(const parsed_site_data &site_data) const;
 
         private:
             page_rank::page_rank& m_page_rank;
