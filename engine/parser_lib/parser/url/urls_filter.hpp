@@ -15,10 +15,11 @@ namespace usl::parser::url
 
         explicit urls_filter(const filter_t& filter);
 
-        urls_collection_t filter_urls(const std::string& root_url, const urls_collection_t& urls);
+        urls_collection_t filter_urls(const std::string& root_url, const std::string& current_url, const urls_collection_t& urls);
 
     private:
-        bool is_url_to_id(const std::string& url) const;
+        // Checks if url is an url to id within the same page
+        bool is_url_to_self_id(const std::string& current_url, const std::string& url) const;
         bool is_relative(const std::string& url) const;
 
         const filter_t m_filter;
