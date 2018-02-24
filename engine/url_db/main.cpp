@@ -34,7 +34,10 @@ int main(int argc, char* argv[])
     usl::url_db::url_db db = usl::url_db::url_db_loader{}.load(db_storage);
 
     //for tests purpose. Add seed url
-    db.insert("http://en.cppreference.com/w/");
+    db.insert("aaaaaaa");
+    db.insert("bbbbbbb");
+    db.insert("ccccccc");
+    db.update_state_as_processed(1);
 
     server.set_message_handler(usl::url_db::url_db_req_message_handler{ db });
 

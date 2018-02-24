@@ -44,7 +44,7 @@ endif()
 include (Local.cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 
-find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(Boost REQUIRED COMPONENTS system filesystem iostreams)
 if (NOT Boost_FOUND)
   message (ERROR "Boost not found!")
 endif()

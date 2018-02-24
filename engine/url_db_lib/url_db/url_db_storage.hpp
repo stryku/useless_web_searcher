@@ -4,6 +4,8 @@
 #include "common/string_view.hpp"
 #include "url_db/url_db_offset.hpp"
 
+#include <boost/iostreams/device/mapped_file.hpp>
+
 #include <fstream>
 #include <vector>
 
@@ -33,12 +35,12 @@ namespace usl
             void update_state(offset_t offset, common::db::url_state state);
 
         private:
-            void write_state(std::ostream& out, common::db::url_state state) const;
+            void write_state(boost::iostreams::mapped_file& out, common::db::url_state state) const;
 
             void insert_to_file(const std::string &url) const;
             offset_t insert_to_data(const std::string &url);
 
-            std::ofstream open_file() const;
+            std::fstream open_file() const;
 
         private:
             const std::string m_data_file_path;
