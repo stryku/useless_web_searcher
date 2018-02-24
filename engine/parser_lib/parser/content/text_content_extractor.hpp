@@ -17,8 +17,8 @@ namespace usl::parser::content
         using pos_t = std::string::size_type;
         using pos_bounds_t = std::pair<pos_t, pos_t>;
 
-        pos_bounds_t find_body_pos() const;
-        std::string extract_text(const pos_bounds_t& body_bounds) const;
+        pos_bounds_t find_body_bounds() const;
+        std::string extract_text(pos_bounds_t body_bounds) const;
         pos_bounds_t get_text_till_next_tag(pos_t from) const;
         pos_bounds_t get_next_tag(pos_t tag_start) const;
 
