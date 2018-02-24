@@ -2,6 +2,9 @@
 #include "common/communication/server/server.hpp"
 
 #include "index_request_handler.hpp"
+#include "index/indexer/indexer.hpp"
+#include "index/indexer/content_indexer.hpp"
+#include "index/page_rank/page_rank.hpp"
 
 #include <easylogging/easylogging++.h>
 
@@ -24,7 +27,13 @@ int main(int argc, char* argv[])
 
     auto server = usl::common::communication::server::server_factory{}.create(bind_address);
 
-    usl::index::index_request_handler request_handler;
+
+    usl::index::indexer::content_indexer content_indexer{ working_directory };
+    usl::index::page_rank::page_rank page_rank{ working_directory };
+
+    usl::index::indexer::indexer indexer{ page_rank, content_indexer };
+
+    usl::index::index_request_handler request_handler{ indexer };
     server.set_message_handler(std::move(request_handler));
 
     server.run();

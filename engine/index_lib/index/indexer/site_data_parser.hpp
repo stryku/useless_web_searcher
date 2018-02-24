@@ -15,7 +15,7 @@ namespace usl::index::indexer
     class site_data_parser
     {
     public:
-        parsed_site_data parse(const std::string& site_data) const;
+        parsed_site_data parse(boost::property_tree::ptree& tree) const;
 
     private:
         common::db::url_id_t extract_id(boost::property_tree::ptree& tree) const;

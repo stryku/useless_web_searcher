@@ -13,7 +13,7 @@ namespace usl::index::indexer
         , m_content_indexer{ content_indexer }
     {}
 
-    void indexer::index(const std::string &site_data)
+    void indexer::index(boost::property_tree::ptree& site_data)
     {
         const auto parsed_site_data = site_data_parser{}.parse(site_data);
 

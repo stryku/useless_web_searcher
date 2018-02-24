@@ -9,13 +9,8 @@
 
 namespace usl::index::indexer
 {
-    parsed_site_data site_data_parser::parse(const std::string &site_data) const
+    parsed_site_data site_data_parser::parse(boost::property_tree::ptree& tree) const
     {
-        std::istringstream iss(site_data);
-
-        boost::property_tree::ptree tree;
-        boost::property_tree::read_json(iss, tree);
-
         parsed_site_data parsed;
 
         parsed.id = extract_id(tree);
