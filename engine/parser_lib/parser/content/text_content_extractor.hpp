@@ -19,12 +19,14 @@ namespace usl::parser::content
 
         pos_bounds_t find_body_pos() const;
         std::string extract_text(const pos_bounds_t& body_bounds) const;
-        pos_bounds_t find_next_text(pos_t from) const;
+        pos_bounds_t get_text_till_next_tag(pos_t from) const;
         pos_bounds_t get_next_tag(pos_t tag_start) const;
 
         bool is_script_tag(pos_bounds_t tag) const;
+
         // Returns pos after </script>
         pos_t skip_script_tag(pos_bounds_t begin_script_tag_bounds) const;
+
         // Returns pos after tag >
         pos_t skip_next_tag(pos_t current_pos) const;
 

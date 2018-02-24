@@ -21,16 +21,27 @@ namespace usl::parser::content
 
     std::string text_content_extractor::extract_text(const pos_bounds_t& body_bounds) const
     {
-        auto current_pos = body_bounds.first;
-        auto next_tag = get_next_tag(current_pos);
+        std::string extracted_text;
+        extracted_text.reserve(body_bounds.second - body_bounds.first);
 
-        if(is_script_tag(next_tag))
+        auto current_pos = body_bounds.first;
+
+        while(current_pos < body_bounds.second)
         {
-            current_pos = skip_script_tag(next_tag);
+            current_pos = skip_next_tag(current_pos);
+            const auto text_bounds = get_text_till_next_tag(current_pos);
+
+            const auto text_begin = std::next(m_site_content, text_bounds.first);
+            const auto text_end = std::next(m_site_content, text_bounds.second);
+            extracted_text.append(text_begin, text_end);
+
+            current_pos = text_bounds.second;
         }
+
+        return extracted_text;
     }
 
-    text_content_extractor::pos_bounds_t text_content_extractor::find_next_text(pos_t from) const
+    text_content_extractor::pos_bounds_t text_content_extractor::get_text_till_next_tag(pos_t from) const
     {
         const auto next_tag_begin = m_site_content.find('<', from);
         return { from, next_tag_begin };
@@ -71,5 +82,9 @@ namespace usl::parser::content
         {
             return next_tag.second;
         }
+    }
+    text_content_extractor::pos_bounds_t text_content_extractor::get_text_till_next_tag(pos_t current_pos) const
+    {
+        con
     }
 }
