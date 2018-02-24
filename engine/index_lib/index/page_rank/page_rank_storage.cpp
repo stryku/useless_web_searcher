@@ -67,4 +67,16 @@ namespace usl::index::page_rank
         const auto file_size = boost::filesystem::file_size(m_storage_file_path);
         return file_size > get_entry_offset(id);
     }
+
+    void page_rank_storage::get_ranks(std::unordered_map<common::db::url_id_t, double>& ids) const
+    {
+        boost::iostreams::mapped_file file;
+        file.open(m_storage_file_path, boost::iostreams::mapped_file::mapmode::readwrite);
+
+        for(auto& [url_id, rank] : ids)
+        {
+            const auto entry = get_file_entry(file, url_id);
+            rank = entry.rank;
+        }
+    }
 }

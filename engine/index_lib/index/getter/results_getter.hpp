@@ -1,7 +1,10 @@
 #pragma once
 
+#include "common/db/url_id.hpp"
+
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 namespace usl::index
 {
@@ -18,7 +21,7 @@ namespace usl::index
         public:
             explicit results_getter(page_rank::page_rank& page_rank, const std::string& indexes_dir);
 
-            std::vector<page_rank::page_rank_storage_entry> get_results(const std::vector<std::string>& words);
+            std::unordered_map<common::db::url_id_t, double> get_results(const std::vector<std::string>& words);
 
         private:
             page_rank::page_rank& m_page_rank;

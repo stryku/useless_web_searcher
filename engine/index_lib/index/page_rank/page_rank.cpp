@@ -18,4 +18,9 @@ namespace usl::index::page_rank
     {
         return m_page_rank_storage.get_rank(id);
     }
+
+    void page_rank::get_ranks(std::unordered_map<common::db::url_id_t, double>& ids) const
+    {
+        m_page_rank_storage.get_ranks(ids);
+    }
 }

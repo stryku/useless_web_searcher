@@ -4,6 +4,7 @@
 
 #include <boost/iostreams/device/mapped_file.hpp>
 
+#include <unordered_map>
 #include <string>
 
 namespace usl::index::page_rank
@@ -17,6 +18,7 @@ namespace usl::index::page_rank
 
         void update(common::db::url_id_t id, double rank) const;
         double get_rank(common::db::url_id_t id) const;
+        void get_ranks(std::unordered_map<common::db::url_id_t, double>& ids) const;
 
     private:
         using offset_t = uint64_t;
