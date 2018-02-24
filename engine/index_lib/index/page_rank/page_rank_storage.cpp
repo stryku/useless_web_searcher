@@ -13,7 +13,7 @@ namespace usl::index::page_rank
         common::fs::file_creator{ m_storage_file_path };
     }
 
-    void page_rank_storage::update(common::db::url_id_t id, double rank)
+    void page_rank_storage::update(common::db::url_id_t id, double rank) const
     {
         if(need_grow(id))
         {
@@ -28,8 +28,7 @@ namespace usl::index::page_rank
 
     bool page_rank_storage::need_grow(common::db::url_id_t id) const
     {
-        const auto file_size = boost::filesystem::file_size(m_storage_file_path);
-        return file_size < get_entry_offset(id);
+        return !is_in_file(id);
     }
 
     page_rank_storage::offset_t page_rank_storage::get_entry_offset(common::db::url_id_t id) const
@@ -48,5 +47,16 @@ namespace usl::index::page_rank
     {
         auto entry_ptr = std::next(file.data(), get_entry_offset(id));
         return *reinterpret_cast<page_rank_storage_entry*>(entry_ptr);
+    }
+
+    double page_rank_storage::get_rank(common::db::url_id_t id) const
+    {
+        return 0;
+    }
+
+    bool page_rank_storage::is_in_file(common::db::url_id_t id) const
+    {
+        const auto file_size = boost::filesystem::file_size(m_storage_file_path);
+        return file_size > get_entry_offset(id);
     }
 }
