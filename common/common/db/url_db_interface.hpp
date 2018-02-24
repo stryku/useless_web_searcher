@@ -22,6 +22,7 @@ namespace usl::common::db
 
         std::string insert(const std::string& url);
         std::string get(common::db::url_id_t id);
+        std::string update_state_as_processed(common::db::url_id_t id);
 
     private:
         zmq::socket_t m_socket;
