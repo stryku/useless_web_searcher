@@ -8,11 +8,11 @@ namespace usl::parser::url
         : m_filter{ filter }
     {}
 
-    urls_collection_t urls_filter::filter_urls(const std::string& root_url, const urls_collection_t &urls)
+    urls_collection_t urls_filter::filter_urls(const std::string& root_url, const std::string& current_url, const urls_collection_t &urls)
     {
-        const auto pred = [this, &root_url](const auto& url)
+        const auto pred = [this, &root_url, &current_url](const auto& url)
         {
-            if(is_url_to_id(url))
+            if(is_url_to_self_id(url, current_url))
             {
                 return false;
             }
@@ -29,9 +29,9 @@ namespace usl::parser::url
         return filtered_urls;
     }
 
-    bool urls_filter::is_url_to_id(const std::string& url) const
+    bool urls_filter::is_url_to_self_id(const std::string& current_url, const std::string& url) const
     {
-        return url.find('#') != std::string::npos;
+        return url.find('#') == current_url.size();
     }
 
     bool urls_filter::is_relative(const std::string& url) const

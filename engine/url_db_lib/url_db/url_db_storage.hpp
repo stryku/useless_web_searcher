@@ -1,7 +1,10 @@
 #pragma once
 
+#include "common/db/url_state.hpp"
 #include "common/string_view.hpp"
 #include "url_db/url_db_offset.hpp"
+
+#include <boost/iostreams/device/mapped_file.hpp>
 
 #include <vector>
 
@@ -19,7 +22,7 @@ namespace usl
         public:
             using data_t = std::vector<uint8_t>;
 
-            explicit url_db_storage(string_view working_directory, const common::fs::file_loader& file_loader);
+            explicit url_db_storage(const std::string& working_directory, const common::fs::file_loader& file_loader);
 
             const data_t &data() const;
 
@@ -28,7 +31,14 @@ namespace usl
 
             offset_t insert(const std::string &url);
 
-            void update_state(offset_t offset, uint8_t state);
+            void update_state(offset_t offset, common::db::url_state state);
+
+        private:
+            void write_state(boost::iostreams::mapped_file& file, offset_t offset, common::db::url_state state) const;
+
+            void prepare_file_for_insertion(const std::string& url) const;
+            void insert_to_file(const std::string &url) const;
+            offset_t insert_to_data(const std::string &url);
 
         private:
             const std::string m_data_file_path;

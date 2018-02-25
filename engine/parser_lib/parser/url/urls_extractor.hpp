@@ -16,7 +16,7 @@ namespace usl::parser::url
         urls_collection_t extract(const std::string& source_url, const std::string& content) const;
 
     private:
-        using pos_t = string_view::size_type;
+        using pos_t = std::string::size_type;
 
         struct url_and_end_pos
         {

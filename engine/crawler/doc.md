@@ -1,6 +1,6 @@
 # Args
 arg[1] = path to engine working directory (WD)
-arg[2] = crawl frontier ip (IP)
+arg[2] = crawl frontier ip (IP) -- default: tcp://localhost:5555
 
 # Execution algorithm
 while true

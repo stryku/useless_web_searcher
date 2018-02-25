@@ -15,7 +15,7 @@ namespace usl::url_db
     {
         auto entry = load_next_entry(file_content);
         offset_t offset{ 0u };
-        url_db::id_t index{ 0u };
+        common::db::url_id_t index{ 0u };
 
         while(entry)
         {
@@ -23,9 +23,10 @@ namespace usl::url_db
 
             const auto url = url_db::url_t{ entry->url() };
             const auto url_size = url.size() + 1u; // with null
+            db.m_url_to_id.emplace(url, index);
             db.m_urls.emplace(std::move(url));
 
-            if(entry->status != 2)
+            if(static_cast<common::db::url_state>(entry->status) != common::db::url_state::processed)
             {
                 db.m_not_processed.push(index);
             }

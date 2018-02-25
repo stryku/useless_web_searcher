@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/db/url_state.hpp"
 #include <cstdint>
 #include <vector>
 #include <cstddef>

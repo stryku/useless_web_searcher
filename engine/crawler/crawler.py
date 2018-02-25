@@ -46,13 +46,18 @@ class Crawler:
 
 
 def main():
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 2:
         print("usage: crawler working_directory crawl_frontier_ip")
         return
 
+    crawl_frontier_ip = 'tcp://localhost:5555'
+
+    if len(sys.argv) == 3:
+        crawl_frontier_ip = sys.argv[2]
+
     while True:
         try:
-            crawler = Crawler(sys.argv[1], sys.argv[2])
+            crawler = Crawler(sys.argv[1], crawl_frontier_ip)
             crawler.run()
         except Exception as ex:
             print(ex)

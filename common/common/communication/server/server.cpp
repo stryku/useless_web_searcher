@@ -8,9 +8,9 @@ namespace usl::common::communication::server
         : m_socket{ context, ZMQ_REP }
     {}
 
-    void server::bind(std::experimental::string_view bind_address)
+    void server::bind(const std::string& bind_address)
     {
-        m_socket.bind(bind_address.data());
+        m_socket.bind(bind_address);
     }
 
     void server::run()

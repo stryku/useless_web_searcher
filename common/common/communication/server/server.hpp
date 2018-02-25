@@ -15,7 +15,7 @@ namespace usl::common::communication::server
     public:
         server(zmq::context_t& context);
 
-        void bind(std::experimental::string_view bind_address);
+        void bind(const std::string& bind_address);
 
         void run();
 

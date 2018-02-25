@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.8)
 
 project(useless_web_searcher)
 
-add_definitions(-std=c++17 -Werror)
+add_definitions(-std=c++17 )
+#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
 
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -43,7 +44,7 @@ endif()
 include (Local.cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 
-find_package(Boost REQUIRED COMPONENTS system filesystem)
+find_package(Boost REQUIRED COMPONENTS system filesystem iostreams)
 if (NOT Boost_FOUND)
   message (ERROR "Boost not found!")
 endif()

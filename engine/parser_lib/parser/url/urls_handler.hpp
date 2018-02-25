@@ -1,19 +1,27 @@
 #pragma once
 
-#include "common/db/url_db_requester.hpp"
+#include "common/db/url_db_interface.hpp"
 
 #include <easylogging/easylogging++.h>
 
-namespace usl::parser::url
+namespace usl::parser
 {
-    class urls_handler
+    namespace data
     {
-    public:
-        explicit urls_handler(const std::string& db_address);
+        class parse_data_and_response;
+    }
 
-        void handle(const std::string& url, const std::string& content, size_t id);
+    namespace url
+    {
+        class urls_handler
+        {
+        public:
+            explicit urls_handler(const std::string &db_address);
 
-    private:
-        common::db::url_db_requester m_db_requester;
-    };
+            void handle(std::shared_ptr<data::parse_data_and_response> parse_data);
+
+        private:
+            common::db::url_db_interface m_db_requester;
+        };
+    }
 }

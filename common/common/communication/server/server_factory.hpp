@@ -9,6 +9,6 @@ namespace usl::common::communication::server
     class server_factory
     {
     public:
-        server create(std::experimental::string_view bind_address) const;
+        server create(const std::string& bind_address) const;
     };
 }

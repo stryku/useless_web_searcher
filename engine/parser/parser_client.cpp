@@ -1,7 +1,9 @@
 #include "parser_client.hpp"
 
 #include "common/fs/file_loader.hpp"
-#include "parser/content/content_parser.hpp"
+#include "parser/data/parse_data_handler.hpp"
+#include "parser/data/parse_data_and_response_factory.hpp"
+
 #include "file_paths_to_parse_provider.hpp"
 
 #include <easylogging/easylogging++.h>
@@ -10,9 +12,12 @@
 
 namespace usl::parser
 {
-    parser_client::parser_client(file_paths_to_parse_provider& file_paths_provider, content::content_parser& parser)
+    parser_client::parser_client(file_paths_to_parse_provider& file_paths_provider,
+                                 data::parse_data_handler& parser,
+                                 parser::data::parse_data_and_response_factory& parse_data_factory)
         : m_file_paths_provider{ file_paths_provider }
         , m_parser{ parser }
+        , m_parse_data_factory{ parse_data_factory }
     {}
 
     void parser_client::run()
@@ -25,7 +30,13 @@ namespace usl::parser
             const auto id = std::stoul(str_id);
             const auto extracted_data = extract_url_and_site(file_content);
 
-            m_parser.parse(extracted_data.url, extracted_data.site_content, id);
+            LOG(INFO) << "parser_client got: " << id;
+
+            auto parse_data = m_parse_data_factory.create(extracted_data.url,
+                                                          extracted_data.site_content,
+                                                          id);
+
+            m_parser.parse(parse_data);
         }
     }
 
