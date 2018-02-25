@@ -18,6 +18,8 @@ public:
 private slots:
     void on_pushButton_search_clicked();
 
+    void on_listView_results_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 };

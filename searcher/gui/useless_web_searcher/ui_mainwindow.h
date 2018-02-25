@@ -34,11 +34,12 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
+    QLabel *label;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QLineEdit *lineEdit_query;
     QPushButton *pushButton_search;
+    QLineEdit *lineEdit_query;
     QLabel *label_status;
     QListView *listView_results;
     QMenuBar *menuBar;
@@ -56,6 +57,20 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy);
+        label->setMaximumSize(QSize(16777215, 140));
+        label->setPixmap(QPixmap(QString::fromUtf8("../useless_logo.png")));
+        label->setScaledContents(false);
+        label->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
@@ -65,15 +80,15 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        lineEdit_query = new QLineEdit(centralWidget);
-        lineEdit_query->setObjectName(QStringLiteral("lineEdit_query"));
-
-        horizontalLayout->addWidget(lineEdit_query);
-
         pushButton_search = new QPushButton(centralWidget);
         pushButton_search->setObjectName(QStringLiteral("pushButton_search"));
 
         horizontalLayout->addWidget(pushButton_search);
+
+        lineEdit_query = new QLineEdit(centralWidget);
+        lineEdit_query->setObjectName(QStringLiteral("lineEdit_query"));
+
+        horizontalLayout->addWidget(lineEdit_query);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -88,11 +103,12 @@ public:
 
         listView_results = new QListView(centralWidget);
         listView_results->setObjectName(QStringLiteral("listView_results"));
+        listView_results->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         verticalLayout_2->addWidget(listView_results);
 
 
-        gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
+        gridLayout->addLayout(verticalLayout_2, 1, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -114,6 +130,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        label->setText(QString());
         pushButton_search->setText(QApplication::translate("MainWindow", "Search", Q_NULLPTR));
         label_status->setText(QApplication::translate("MainWindow", "Ready", Q_NULLPTR));
     } // retranslateUi

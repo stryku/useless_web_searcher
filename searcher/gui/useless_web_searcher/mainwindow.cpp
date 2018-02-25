@@ -5,6 +5,8 @@
 #include "common/db/url_db_interface.hpp"
 
 #include <QStringListModel>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include <map>
 #include <queue>
@@ -53,9 +55,15 @@ void MainWindow::on_pushButton_search_clicked()
     for(const auto& rank_and_url : rank_to_id)
     {
         const auto url = db_interface.get(rank_and_url.second);
-        list.append(QString::fromStdString(url) + ':' + QString::number(rank_and_url.first));
+        list.append(QString::fromStdString(url));
 //        list.append(QString::number(rank_and_url.second) + ':' + QString::number(rank_and_url.first));
     }
 
     static_cast<QStringListModel*>(model)->setStringList(list);
+}
+
+void MainWindow::on_listView_results_doubleClicked(const QModelIndex &index)
+{
+    const auto url = index.data(Qt::DisplayRole).toString();
+    QDesktopServices::openUrl(QUrl(url));
 }
