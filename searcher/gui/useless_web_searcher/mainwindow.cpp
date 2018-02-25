@@ -8,6 +8,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 
+#include <chrono>
 #include <map>
 #include <queue>
 
@@ -35,6 +36,10 @@ void MainWindow::on_pushButton_search_clicked()
                    [](const QString& word) { return word.toStdString(); });
 
 
+    auto start = std::chrono::system_clock::now();
+
+    ui->label_status->setText("Fetching results...");
+
     const auto index_response = usl::common::index::index_interface{ "tcp://localhost:5552" }.get_results(words);
 
     auto model = ui->listView_results->model();
@@ -56,10 +61,15 @@ void MainWindow::on_pushButton_search_clicked()
     {
         const auto url = db_interface.get(rank_and_url.second);
         list.append(QString::fromStdString(url));
-//        list.append(QString::number(rank_and_url.second) + ':' + QString::number(rank_and_url.first));
     }
 
+    auto end = std::chrono::system_clock::now();
+
+    const auto diff = end - start;
+    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
+
     static_cast<QStringListModel*>(model)->setStringList(list);
+    ui->label_status->setText(QString{"Ready in: %1ms"}.arg(ms));
 }
 
 void MainWindow::on_listView_results_doubleClicked(const QModelIndex &index)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/db/url_id.hpp"
+#include "index/indexer/index_file.hpp"
 
 #include <string>
 #include <vector>
@@ -23,6 +24,11 @@ namespace usl::index
 
             std::unordered_map<common::db::url_id_t, double> get_results(const std::vector<std::string>& words);
 
+        private:
+            void get_for_words(const std::vector<std::string>& words,
+                               size_t count,
+                               std::vector<indexer::index_file::index_file_entry>& hits);
+            
         private:
             page_rank::page_rank& m_page_rank;
             const std::string m_indexes_dir;

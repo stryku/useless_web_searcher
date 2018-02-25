@@ -62,6 +62,11 @@ namespace usl::index::indexer
 
     std::vector<index_file::index_file_entry> index_file::get_all() const
     {
+        if(!boost::filesystem::exists(m_path) || boost::filesystem::file_size(m_path) == 0)
+        {
+            return std::vector<index_file::index_file_entry>{};
+        }
+
         boost::iostreams::mapped_file file;
         file.open(m_path, boost::iostreams::mapped_file::mapmode::readwrite);
         std::vector<index_file::index_file_entry> entries;
