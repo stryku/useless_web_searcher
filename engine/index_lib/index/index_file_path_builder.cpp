@@ -1,5 +1,6 @@
 #include "index_file_path_builder.hpp"
 
+#include <algorithm>
 #include <numeric>
 
 namespace usl::index
@@ -18,7 +19,9 @@ namespace usl::index
 
         while(words_begin != words_end)
         {
-            path.append(*words_begin++);
+            auto lower = *words_begin++;
+            std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+            path.append(lower);
             ++break_counter;
             if(words_begin == words_end)
             {

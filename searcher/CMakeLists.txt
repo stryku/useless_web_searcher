@@ -4,7 +4,7 @@ project(useless_web_searcher)
 
 set(CMAKE_PREFIX_PATH ~/Qt/5.8/gcc_64)
 
-add_definitions(-fPIC -v)
+add_definitions(-fPIC)
 
 find_package (Qt5Widgets)
 find_package (Qt5UiTools REQUIRED)
@@ -32,5 +32,5 @@ add_library (MocObjects OBJECT
 
 add_executable(${PROJECT_NAME} ${gui_src} ${src_qt} ${inc_qt} $<TARGET_OBJECTS:MocObjects>)
                                    
-target_link_libraries (${PROJECT_NAME} common  Qt5::Widgets Qt5::UiTools)
+target_link_libraries (${PROJECT_NAME} common easylogging  Qt5::Widgets Qt5::UiTools)
 

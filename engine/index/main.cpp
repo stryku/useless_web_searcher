@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     usl::index::page_rank::page_rank page_rank{ working_directory };
 
     usl::index::indexer::indexer indexer{ page_rank, content_indexer };
-    usl::index::getter::results_getter results_getter{ page_rank, working_directory + std::string{ "/indexes" } };
+    usl::index::getter::results_getter results_getter{ page_rank, working_directory + std::string{ "/index/indexes" } };
 
     usl::index::index_request_handler request_handler{ indexer, results_getter };
     server.set_message_handler(std::move(request_handler));

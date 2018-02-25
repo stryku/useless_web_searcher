@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(useless_web_searcher)
 
-add_definitions(-std=c++17 -Werror)
+add_definitions(-std=c++17 )
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
 
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)

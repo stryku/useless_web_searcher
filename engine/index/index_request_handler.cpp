@@ -30,7 +30,7 @@ namespace usl::index
         {
             return handle_process_sentences(tree);
         }
-        if(msg_type == common::index::request_keys::k_process_sentences)
+        if(msg_type == common::index::request_keys::k_get)
         {
             return handle_get(tree);
         }
@@ -62,8 +62,8 @@ namespace usl::index
         for(auto& [id, rank] : ranks)
         {
             boost::property_tree::ptree rank_tree;
-            rank_tree.put("rank.url", id);
-            rank_tree.put("rank.value", rank);
+            rank_tree.put("url_id", id);
+            rank_tree.put("rank", rank);
 
             tree.add_child("ranks.rank", rank_tree);
         }
