@@ -40,6 +40,10 @@ namespace usl::url_db
         {
             return update_state_as_processed(tree);
         }
+        if(msg_type == common::db::request_keys::k_get)
+        {
+            return get(tree);
+        }
 
         return zmq::message_t();
     }
@@ -67,7 +71,9 @@ namespace usl::url_db
 
     zmq::message_t url_db_req_message_handler::get(boost::property_tree::ptree& parsed_req)
     {
-        return zmq::message_t();
+        const auto id = parsed_req.get<common::db::url_id_t>("id");
+        const auto url = std::string{ m_db.get(id).url() };
+        return zmq::message_t(url.begin(), url.end());
     }
 
     zmq::message_t url_db_req_message_handler::insert(boost::property_tree::ptree& parsed_req)
