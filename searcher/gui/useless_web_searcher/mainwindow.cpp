@@ -69,7 +69,7 @@ void MainWindow::on_pushButton_search_clicked()
     auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
 
     static_cast<QStringListModel*>(model)->setStringList(list);
-    ui->label_status->setText(QString{"Ready in: %1ms"}.arg(ms));
+    ui->label_status->setText(QString{"Ready. %1 results in: %2ms"}.arg(list.size()).arg(ms));
 }
 
 void MainWindow::on_listView_results_doubleClicked(const QModelIndex &index)
