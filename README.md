@@ -18,7 +18,7 @@ Consists of:
 * crawl frontier - provides URLs to crawlers
 * crawler - downloads web pages contents
 * index - indexes page content and provides results for search queries
-* parse frontier - provides downloaded pages for parsers
+* parse frontier - provides downloaded pages to parsers
 * parser - parses web pages contents
 * url_db - storage for URLs
 
