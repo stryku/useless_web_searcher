@@ -19,7 +19,7 @@ namespace usl::parser::url
         const auto extracted_urls = urls_extractor{}.extract(data.url, data.site_content);
 
         const auto root_url = info::site_root(data.url);
-        const auto filtered_urls = urls_filter{{}}.filter_urls(root_url, data.url, extracted_urls);
+        const auto filtered_urls = urls_filter{}.filter_urls(root_url, data.url, extracted_urls);
         std::unordered_set<common::db::url_id_t> urls_ids;
 
         LOG(INFO) << "urls_handler filtered urls: " << filtered_urls.size();

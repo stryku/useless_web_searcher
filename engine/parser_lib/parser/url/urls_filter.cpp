@@ -4,10 +4,6 @@
 
 namespace usl::parser::url
 {
-    urls_filter::urls_filter(const usl::parser::url::urls_filter::filter_t &filter)
-        : m_filter{ filter }
-    {}
-
     urls_collection_t urls_filter::filter_urls(const std::string& root_url, const std::string& current_url, const urls_collection_t &urls)
     {
         const auto pred = [this, &root_url, &current_url](const auto& url)
