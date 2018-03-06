@@ -6,6 +6,7 @@ addons:
     packages:
       - g++-6
       - libboost-all-dev
+      - libzmqpp-dev
     sources: &sources
       - ubuntu-toolchain-r-test
       
