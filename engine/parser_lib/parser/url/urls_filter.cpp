@@ -8,6 +8,11 @@ namespace usl::parser::url
     {
         const auto pred = [this, &root_url, &current_url](const auto& url)
         {
+            if(url.empty())
+            {
+                return false;
+            }
+
             if(is_url_to_self_id(url, current_url))
             {
                 return false;
