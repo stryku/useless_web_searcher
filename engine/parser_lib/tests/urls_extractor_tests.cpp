@@ -18,4 +18,13 @@ namespace usl::tests
 
         ASSERT_THAT(result.size(), 0u);
     }
+
+    TEST(urls_extractor, UrlInHeader_Ignore)
+    {
+        const auto test_source = "<head><a href=\"dummy.com\">dummy</a></head><body></body>";
+        auto extractor = get_urls_extractor();
+        const auto result = extractor.extract("", test_source);
+
+        ASSERT_THAT(result.size(), 0u);
+    }
 }
