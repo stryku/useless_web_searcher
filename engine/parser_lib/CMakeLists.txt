@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.8)
 
 project(parser_lib)
 
-FILE(GLOB_RECURSE SRC  *.*pp)
+add_subdirectory(tests)
+
+#aux_source_directory(. SRC)
+
+FILE(GLOB_RECURSE SRC parser/*.*pp)
 
 add_library(${PROJECT_NAME} STATIC ${SRC})
 
