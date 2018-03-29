@@ -1,5 +1,4 @@
 # Useless Web Searcher
-![alt text](https://github.com/stryku/useless_web_searcher/blob/master/searcher/gui/useless_logo.png)
 
 A pet project. At this point you probably know that its purpose is not to replace the google, it is useless. I made it as an exercise for multiprocess and multithread applications. At the beginning I treated it as a challenge - wanted to write it during one weekend. Unfortunately whole Saturday I was out of home and started working at 21:00 till end of Sunday + Saturday next week. Basically first 235 commits were made during one weekend so I consider this challenge as completed.
 
